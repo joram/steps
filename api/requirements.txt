@@ -1,2 +1,5 @@
-flask==1.1.2
+flask
+flask-cors
 aioflask
+rpi_ws281x
+adafruit-circuitpython-neopixel
