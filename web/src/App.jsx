@@ -9,7 +9,7 @@ function colorChanged(color){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ state: {color: color.rgb} })
     };
-    fetch('http://localhost:5000/api/v0/state', requestOptions)
+    fetch('/api/v0/state', requestOptions)
         .then(response => response.json())
         .then(state => {
             console.log(state)

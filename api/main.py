@@ -1,19 +1,24 @@
 import atexit
 import os
 from flask import Flask, request, send_from_directory, jsonify
-from concurrent.futures import ThreadPoolExecutor
 from flask_cors import CORS
-from neopixel import Adafruit_NeoPixel, Color
+from neopixel import NeoPixel
+import board
+import threading
+import time
+from leds import colorWipe, theaterChase, rainbow, rainbowCycle, theaterChaseRainbow
 
-from api.leds import colorWipe, theaterChase, rainbow, rainbowCycle, theaterChaseRainbow
-
-done = False
 dir_path = os.path.dirname(os.path.realpath(__file__))
 build_dir = os.path.join(dir_path, "build")
 app = Flask(__name__, static_folder=build_dir)
 CORS(app)
 
-state = {}
+done = False
+thread = None
+state = {
+  "color": {"r": 255, "g": 255, "b":255}
+}
+pixels = NeoPixel(board.D20, 150)
 
 
 @app.route('/', defaults={'path': ''})
@@ -32,44 +37,39 @@ def state_view():
     return jsonify(state)
 
 
-# LED strip configuration:
-LED_COUNT = 16  # Number of LED pixels.
-LED_PIN = 18  # GPIO pin connected to the pixels (18 uses PWM!).
-LED_FREQ_HZ = 800000  # LED signal frequency in hertz (usually 800khz)
-LED_DMA = 10  # DMA channel to use for generating signal (try 10)
-LED_BRIGHTNESS = 255  # Set to 0 for darkest and 255 for brightest
-LED_INVERT = False  # True to invert the signal (when using NPN transistor level shift)
-LED_CHANNEL = 0  # set to '1' for GPIOs 13, 19, 41, 45 or 53
-
-
 def drive_leds():
-    # Create NeoPixel object with appropriate configuration.
-    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-    # Intialize the library (must be called once before other functions).
-    strip.begin()
+    global done
+    mode = state.get("mode", "solid")
     while not done:
-        print('Color wipe animations.')
-        colorWipe(strip, Color(255, 0, 0))  # Red wipe
-        colorWipe(strip, Color(0, 255, 0))  # Blue wipe
-        colorWipe(strip, Color(0, 0, 255))  # Green wipe
-        print('Theater chase animations.')
-        theaterChase(strip, Color(127, 127, 127))  # White theater chase
-        theaterChase(strip, Color(127, 0, 0))  # Red theater chase
-        theaterChase(strip, Color(0, 0, 127))  # Blue theater chase
-        print('Rainbow animations.')
-        rainbow(strip)
-        rainbowCycle(strip)
-        theaterChaseRainbow(strip)
+        print(state)
+        if mode == "solid":
+            color = state.get("color")
+            pixels.fill((
+                color.get("r", 255),
+                color.get("g", 255),
+                color.get("b", 255),
+            ))
+        time.sleep(1)
+    pixels.fill((0,0,0))
+
+
+@app.before_first_request
+def start_worker():
+    global thread
+    thread = threading.Thread(target=drive_leds)
+    thread.daemon = True                            # Daemonize thread
+    thread.start()                                  # Start the execution
 
 
 def stop_leds():
     global done
     done = True
+    pixels.fill((0,0,0))
 
 
 if __name__ == '__main__':
-   executor = ThreadPoolExecutor(2)
-   executor.submit(drive_leds)
-   atexit.register(stop_leds)
-   app.run(host="0.0.0.0", debug=True)
+    pixels.fill((255, 255, 255))
+    atexit.register(stop_leds)
+    app.run(host="0.0.0.0", debug=True)
+
 

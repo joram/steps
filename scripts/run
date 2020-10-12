@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-
-git pull
-sudo pip3 install -r ./api/requirements.txt
+export PYTHONPATH=.
+#git pull
+#sudo pip3 install -r ./api/requirements.txt
 sudo python3 ./api/main.py
