@@ -1,4 +1,5 @@
 import atexit
+import json
 import os
 from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
@@ -87,19 +88,23 @@ def mode_fading(key):
         i += 1
 
 
+def wheel(pos):
+    """Generate rainbow colors across 0-255 positions."""
+    if pos < 85:
+        return (pos * 3, 255 - pos * 3, 0)
+    elif pos < 170:
+        pos -= 85
+        return (255 - pos * 3, 0, pos * 3)
+    pos -= 170
+    return (0, pos * 3, 255 - pos * 3)
+
+
 def mode_rainbow(key):
     h = 0
     while key == _state_key():
         h = h % 255
-        c = colorsys.hls_to_rgb(float(h)/255.0, 1, 1)
-        print(c)
-        c = (
-            int(float(c[0])*255),
-            int(c[1]*255),
-            int(c[2]*255),
-        )
-        print(c)
-        pixels.fill(c)
+        color = wheel(h)
+        pixels.fill(color)
         time.sleep(0.1)
         h += 1
 

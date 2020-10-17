@@ -14,7 +14,7 @@ function color1Changed(color){
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(serverState)
+        body: JSON.stringify({state: serverState} )
     };
     fetch('/api/v0/state', requestOptions)
         .then(response => response.json())
@@ -29,7 +29,7 @@ function color2Changed(color){
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(serverState)
+        body: JSON.stringify({state: serverState} )
     };
     fetch('/api/v0/state', requestOptions)
         .then(response => response.json())
