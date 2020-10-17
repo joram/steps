@@ -6,7 +6,7 @@ from neopixel import NeoPixel
 import board
 import threading
 import time
-from leds import colorWipe, theaterChase, rainbow, rainbowCycle, theaterChaseRainbow
+import colorsys
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 build_dir = os.path.join(dir_path, "build")
@@ -18,7 +18,7 @@ thread = None
 state = {
   "color": {"r": 255, "g": 255, "b":255}
 }
-pixels = NeoPixel(board.D20, 150)
+pixels = NeoPixel(board.D18, 1300)
 
 
 @app.route('/', defaults={'path': ''})
@@ -37,20 +37,91 @@ def state_view():
     return jsonify(state)
 
 
+def _state_key():
+    return ",".join(list(state.values()))
+
+
+def mode_solid(key):
+    while key == _state_key():
+        color = state.get("color")
+        pixels.fill((
+            color.get("r", 255),
+            color.get("g", 255),
+            color.get("b", 255),
+        ))
+        time.sleep(1)
+
+
+def _color_tuple(data):
+    return (
+        data.get("r", 255),
+        data.get("g", 255),
+        data.get("b", 255),
+    )
+
+
+def _color_between(c1, c2, ratio):
+    (h1, l1, s1) = colorsys.rgb_to_hls(c1[0], c1[1], c1[2])
+    (h2, l2, s2) = colorsys.rgb_to_hls(c2[0], c2[1], c2[2])
+    h3 = h1*ratio + h2*(1-ratio)
+    l3 = l1*ratio + l2*(1-ratio)
+    s3 = s1*ratio + s2*(1-ratio)
+    return colorsys.hls_to_rgb(h3, l3, s3)
+
+
+def mode_fading(key):
+    colors = state.get("colors", [
+        {"r": 255, "g": 255, "b": 255},
+        {"r": 0, "g": 0, "b": 0},
+    ])
+    c1 = _color_tuple(colors[0])
+    c2 = _color_tuple(colors[1])
+    i = 0
+    while key == _state_key():
+        i = i % 100
+        color = _color_between(c1, c2, i/100)
+        pixels.fill(color)
+        time.sleep(0.1)
+        i += 1
+
+
+def mode_rainbow(key):
+    h = 0
+    while key == _state_key():
+        h = h % 255
+        color = colorsys.hls_to_rgb(h, 255, 255)
+        pixels.fill(color)
+        time.sleep(0.1)
+        h += 1
+
+
 def drive_leds():
     global done
     mode = state.get("mode", "solid")
+    key = _state_key()
     while not done:
-        print(state)
-        if mode == "solid":
-            color = state.get("color")
-            pixels.fill((
-                color.get("r", 255),
-                color.get("g", 255),
-                color.get("b", 255),
-            ))
-        time.sleep(1)
-    pixels.fill((0,0,0))
+        new_key = _state_key()
+        if new_key != key:
+            key = new_key
+
+            if mode == "solid":
+                worker_thread = threading.Thread(target=mode_solid, args=(key,))
+                worker_thread.daemon = True
+                worker_thread.start()
+
+            if mode == "fading":
+                worker_thread = threading.Thread(target=mode_fading, args=(key,))
+                worker_thread.daemon = True
+                worker_thread.start()
+
+            if mode == "rainbow":
+                worker_thread = threading.Thread(target=mode_rainbow, args=(key,))
+                worker_thread.daemon = True
+                worker_thread.start()
+
+        time.sleep(0.1)
+
+    pixels.fill((0, 0, 0))
 
 
 @app.before_first_request

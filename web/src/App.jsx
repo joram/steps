@@ -1,27 +1,23 @@
 import React from 'react';
+import 'semantic-ui-css/semantic.min.css'
 import './App.css';
-import { CirclePicker } from 'react-color';
+import {SolidPage} from "./components/solid_page";
+import {RainbowPage} from "./components/rainbow_page";
+import {FadingPage} from "./components/fading_page";
+import {Divider} from "semantic-ui-react";
 
-function colorChanged(color){
-    console.log(color.hex)
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ state: {color: color.rgb} })
-    };
-    fetch('/api/v0/state', requestOptions)
-        .then(response => response.json())
-        .then(state => {
-            console.log(state)
-        })
-}
 
 function App() {
   return (
     <div className="App">
-      <CirclePicker onChangeComplete={ colorChanged } />
+      <Divider horizontal />
+      <SolidPage />
+      <Divider horizontal />
+      <RainbowPage />
+      <Divider horizontal />
+      <FadingPage />
     </div>
   );
 }
 
-export default App;
+export default App
