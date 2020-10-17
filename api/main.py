@@ -7,6 +7,7 @@ import board
 import threading
 import time
 import colorsys
+import json
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 build_dir = os.path.join(dir_path, "build")
@@ -18,7 +19,7 @@ thread = None
 state = {
   "color": {"r": 255, "g": 255, "b":255}
 }
-pixels = NeoPixel(board.D18, 1300)
+pixels = NeoPixel(board.D18, 300)
 
 
 @app.route('/', defaults={'path': ''})
@@ -33,12 +34,13 @@ def serve(path):
 def state_view():
     global state
     if request.method == "POST":
+        print(request.json)
         state = request.json.get("state")
     return jsonify(state)
 
 
 def _state_key():
-    return ",".join(list(state.values()))
+    return json.dumps(state, sort_keys=True)
 
 
 def mode_solid(key):
@@ -89,21 +91,27 @@ def mode_rainbow(key):
     h = 0
     while key == _state_key():
         h = h % 255
-        color = colorsys.hls_to_rgb(h, 255, 255)
-        pixels.fill(color)
+        c = colorsys.hls_to_rgb(float(h)/255.0, 1, 1)
+        print(c)
+        c = (
+            int(float(c[0])*255),
+            int(c[1]*255),
+            int(c[2]*255),
+        )
+        print(c)
+        pixels.fill(c)
         time.sleep(0.1)
         h += 1
 
 
 def drive_leds():
     global done
-    mode = state.get("mode", "solid")
     key = _state_key()
     while not done:
         new_key = _state_key()
         if new_key != key:
             key = new_key
-
+            mode = state.get("mode", "solid")
             if mode == "solid":
                 worker_thread = threading.Thread(target=mode_solid, args=(key,))
                 worker_thread.daemon = True
