@@ -1,4 +1,5 @@
 import atexit
+import json
 import os
 from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
@@ -18,7 +19,7 @@ thread = None
 state = {
   "color": {"r": 255, "g": 255, "b":255}
 }
-pixels = NeoPixel(board.D18, 1300)
+pixels = NeoPixel(board.D18, 300)
 
 
 @app.route('/', defaults={'path': ''})
@@ -38,7 +39,7 @@ def state_view():
 
 
 def _state_key():
-    return ",".join(list(state.values()))
+    return json.dumps(state, sort_keys=True)
 
 
 def mode_solid(key):
@@ -85,11 +86,22 @@ def mode_fading(key):
         i += 1
 
 
+def wheel(pos):
+    """Generate rainbow colors across 0-255 positions."""
+    if pos < 85:
+        return (pos * 3, 255 - pos * 3, 0)
+    elif pos < 170:
+        pos -= 85
+        return (255 - pos * 3, 0, pos * 3)
+    pos -= 170
+    return (0, pos * 3, 255 - pos * 3)
+
+
 def mode_rainbow(key):
     h = 0
     while key == _state_key():
         h = h % 255
-        color = colorsys.hls_to_rgb(h, 255, 255)
+        color = wheel(h)
         pixels.fill(color)
         time.sleep(0.1)
         h += 1
