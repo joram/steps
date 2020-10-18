@@ -80,12 +80,16 @@ def mode_fading(key):
     c1 = _color_tuple(colors[0])
     c2 = _color_tuple(colors[1])
     i = 0
+    delta = 1
     while key == _state_key():
-        i = i % 100
         color = _color_between(c1, c2, i/100)
         pixels.fill(color)
-        time.sleep(0.1)
-        i += 1
+        time.sleep(0.01)
+        if i >= 100:
+            delta = -1
+        if i <= 0:
+            delta = 1
+        i += delta
 
 
 def wheel(pos):
