@@ -1,5 +1,5 @@
 import React from 'react';
-import { CirclePicker } from 'react-color';
+import {ColorPicker} from "./color_picker";
 
 function colorChanged(color){
     console.log(color.hex)
@@ -18,8 +18,7 @@ function colorChanged(color){
 export function SolidPage() {
   return (
     <div className="App">
-
-      <CirclePicker onChangeComplete={ colorChanged } />
+      <ColorPicker color={{r:255, g:255, b:255}} onChangeComplete={ colorChanged } />
     </div>
   );
 }
