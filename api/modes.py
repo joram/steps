@@ -12,11 +12,13 @@ def mode_solid(key, pixels):
         color.get("g", 255),
         color.get("b", 255),
     ))
+    pixels.show()
     time.sleep(5)
 
 
 def mode_off(key, pixels):
     pixels.fill((0, 0, 0))
+    pixels.show()
     time.sleep(5)
 
 
@@ -33,6 +35,7 @@ def mode_fading(key, pixels):
     while key == _state_key():
         color = _color_between(c1, c2, i/100)
         pixels.fill(color)
+        pixels.show()
         time.sleep(0.01)
         if i >= 100:
             delta = -1
@@ -47,6 +50,7 @@ def mode_solid_rainbow(key, pixels):
         h = h % 255
         color = wheel(h)
         pixels.fill(color)
+        pixels.show()
         time.sleep(0.01)
         h += 1
 
@@ -58,5 +62,6 @@ def mode_sliding_rainbow(key, pixels):
             hue = (h+i) % 255
             color = wheel(hue)
             pixels[i] = color
+        pixels.show()
         time.sleep(0.01)
         h += 10

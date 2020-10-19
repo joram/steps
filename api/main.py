@@ -19,7 +19,7 @@ app = Flask(__name__, static_folder=build_dir)
 CORS(app)
 
 done = False
-pixels = NeoPixel(board.D18, 300)
+pixels = NeoPixel(board.D18, 300, auto_write=False)
 
 
 @app.route('/', defaults={'path': ''})
