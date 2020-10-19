@@ -31,7 +31,7 @@ export class ColorPicker extends React.Component {
                 height: "50px",
                 marginBottom: "10px"
             }}/>
-            <BlockPicker onChangeComplete={this.colorChanged.bind(this)}/>
+            <BlockPicker onChange={this.colorChanged.bind(this)}/>
         </>
         );
     }
