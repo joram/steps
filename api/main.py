@@ -10,7 +10,7 @@ import time
 import colorsys
 import json
 
-from modes import mode_solid_rainbow, mode_fading, mode_solid, mode_sliding_rainbow, mode_off
+from modes import mode_solid_rainbow, mode_fading, mode_solid, mode_sliding_rainbow, mode_off, mode_per_step
 from utils import _state_key, set_state, get_state
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -59,6 +59,8 @@ def drive_leds():
                 worker_thread = threading.Thread(target=mode_solid_rainbow, args=(key, pixels))
             if mode == "sliding_rainbow":
                 worker_thread = threading.Thread(target=mode_sliding_rainbow, args=(key, pixels))
+            if mode == "per_steps":
+                worker_thread = threading.Thread(target=mode_per_steps, args=(key, pixels))
 
             worker_thread.daemon = True
             worker_thread.start()

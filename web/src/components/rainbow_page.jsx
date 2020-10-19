@@ -14,6 +14,11 @@ function do_off() {
     update_mode({mode: "off"})
 }
 
+function do_per_step() {
+    update_mode({mode: "per_step"})
+}
+
+
 function do_halloween() {
     update_mode({
         mode: "fading",
@@ -50,6 +55,10 @@ export function PrebuildModesPage() {
         <br/>
 
         <Button onClick={do_halloween}>Halloween</Button>
+        <br/>
+        <br/>
+
+        <Button onClick={do_per_step}>Per Step</Button>
         <br/>
         <br/>
 
