@@ -58,9 +58,9 @@ def mode_solid_rainbow(key, pixels):
 
 def mode_per_step(key, pixels):
     colors = [
-        (255, 0, 0),
-        (0, 255, 0),
-        (0, 0, 255),
+        (255, 50, 0),
+        (0, 0, 0),
+      #  (0, 0, 255),
     ]
     o = int(pixels.n/2)
     for i in range(0, o):

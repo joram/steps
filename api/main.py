@@ -59,8 +59,8 @@ def drive_leds():
                 worker_thread = threading.Thread(target=mode_solid_rainbow, args=(key, pixels))
             if mode == "sliding_rainbow":
                 worker_thread = threading.Thread(target=mode_sliding_rainbow, args=(key, pixels))
-            if mode == "per_steps":
-                worker_thread = threading.Thread(target=mode_per_steps, args=(key, pixels))
+            if mode == "per_step":
+                worker_thread = threading.Thread(target=mode_per_step, args=(key, pixels))
 
             worker_thread.daemon = True
             worker_thread.start()
