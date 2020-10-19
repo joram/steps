@@ -55,6 +55,21 @@ def mode_solid_rainbow(key, pixels):
         h += 1
 
 
+def mode_per_step(key, pixels):
+    colors = [
+        (255, 0, 0),
+        (0, 255, 0),
+        (0, 0, 255),
+    ]
+    o = int(pixels.n/2)
+    for i in range(0, o):
+        index = int(i/21) % len(colors)
+        pixels[i] = colors[index]
+        pixels[i+o] = colors[index]
+    pixels.show()
+    time.sleep(5)
+
+
 def mode_sliding_rainbow(key, pixels):
     h = 0
     while key == _state_key():
