@@ -29,12 +29,16 @@ def _color_tuple(data):
 
 
 def _color_between(c1, c2, ratio):
-    (h1, l1, s1) = colorsys.rgb_to_hls(c1[0], c1[1], c1[2])
-    (h2, l2, s2) = colorsys.rgb_to_hls(c2[0], c2[1], c2[2])
-    h3 = h1*ratio + h2*(1-ratio)
-    l3 = l1*ratio + l2*(1-ratio)
-    s3 = s1*ratio + s2*(1-ratio)
-    return colorsys.hls_to_rgb(h3, l3, s3)
+#    (h1, l1, s1) = colorsys.rgb_to_hls(c1[0], c1[1], c1[2])
+#    (h2, l2, s2) = colorsys.rgb_to_hls(c2[0], c2[1], c2[2])
+#    h3 = h1*ratio + h2*(1-ratio)
+#    l3 = l1*ratio + l2*(1-ratio)
+#    s3 = s1*ratio + s2*(1-ratio)
+#    return colorsys.hls_to_rgb(h3, l3, s3)
+     r = c1[0]*ratio + c2[0]*(1-ratio)
+     g = c1[1]*ratio + c2[1]*(1-ratio)
+     b = c1[2]*ratio + c2[2]*(1-ratio)
+     return (int(r), int(g), int(b))
 
 
 def wheel(pos):

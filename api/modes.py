@@ -33,10 +33,11 @@ def mode_fading(key, pixels):
     i = 0
     delta = 1
     while key == _state_key():
-        color = _color_between(c1, c2, i/100)
+        color = _color_between(c1, c2, float(i)/100.0)
+        print(color)
         pixels.fill(color)
         pixels.show()
-        time.sleep(0.01)
+        time.sleep(0.1)
         if i >= 100:
             delta = -1
         if i <= 0:
@@ -64,4 +65,4 @@ def mode_sliding_rainbow(key, pixels):
             pixels[i] = color
         pixels.show()
         time.sleep(0.01)
-        h += 10
+        h += 2
