@@ -1,20 +1,23 @@
 import time
 
-from api.utils import wheel, get_state, _color_tuple, _state_key, _color_between
+from utils import wheel, get_state, _color_tuple, _state_key, _color_between
 
 
 def mode_solid(key, pixels):
     state = get_state()
     color = state.get("color")
+    print(f"solid: {color}")
     pixels.fill((
         color.get("r", 255),
         color.get("g", 255),
         color.get("b", 255),
     ))
+    time.sleep(5)
 
 
 def mode_off(key, pixels):
     pixels.fill((0, 0, 0))
+    time.sleep(5)
 
 
 def mode_fading(key, pixels):
@@ -44,7 +47,7 @@ def mode_solid_rainbow(key, pixels):
         h = h % 255
         color = wheel(h)
         pixels.fill(color)
-        time.sleep(0.1)
+        time.sleep(0.01)
         h += 1
 
 
@@ -55,5 +58,5 @@ def mode_sliding_rainbow(key, pixels):
             hue = (h+i) % 255
             color = wheel(hue)
             pixels[i] = color
-        time.sleep(0.1)
-        h += 1
+        time.sleep(0.01)
+        h += 10

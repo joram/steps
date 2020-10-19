@@ -10,8 +10,8 @@ import time
 import colorsys
 import json
 
-from api.modes import mode_solid_rainbow, mode_fading, mode_solid, mode_sliding_rainbow, mode_off
-from api.utils import _state_key
+from modes import mode_solid_rainbow, mode_fading, mode_solid, mode_sliding_rainbow, mode_off
+from utils import _state_key, set_state, get_state
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 build_dir = os.path.join(dir_path, "build")
@@ -19,9 +19,8 @@ app = Flask(__name__, static_folder=build_dir)
 CORS(app)
 
 done = False
-thread = None
-
 pixels = NeoPixel(board.D18, 300)
+
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -33,21 +32,23 @@ def serve(path):
 
 @app.route('/api/v0/state', methods=["GET", "POST"])
 def state_view():
-    global state
     if request.method == "POST":
-        print(request.json)
         state = request.json.get("state")
+        set_state(state)
+        print(state)
     return jsonify(state)
 
 
 def drive_leds():
     global done
-    key = _state_key()
+    key = ""
     while not done:
         new_key = _state_key()
         if new_key != key:
             key = new_key
+            state = get_state()
             mode = state.get("mode", "solid")
+            print(f"change in state!: {state}")
             if mode == "solid":
                 worker_thread = threading.Thread(target=mode_solid, args=(key, pixels))
             if mode == "off":

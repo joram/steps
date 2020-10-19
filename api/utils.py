@@ -12,6 +12,7 @@ def set_state(new_state):
 
 
 def get_state():
+    global state
     return state
 
 
