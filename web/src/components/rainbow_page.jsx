@@ -16,7 +16,7 @@ function do_off() {
 
 function do_halloween() {
     update_mode({
-        mode: "solid_rainbow",
+        mode: "fading",
         colors: [
             {r:255, g:0, b:0},
             {r:255, g:66, b:0},
