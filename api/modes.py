@@ -1,6 +1,6 @@
 import time
 
-from utils import wheel, get_state, _color_tuple, _state_key, _color_between
+from utils import wheel, get_state, _color_tuple, state_key, _color_between, set_pixel_circle
 
 
 def mode_solid(key, pixels):
@@ -32,7 +32,7 @@ def mode_fading(key, pixels):
     c2 = _color_tuple(colors[1])
     i = 0
     delta = 1
-    while key == _state_key():
+    while key == state_key():
         color = _color_between(c1, c2, i/100)
         pixels.fill(color)
         pixels.show()
@@ -46,7 +46,7 @@ def mode_fading(key, pixels):
 
 def mode_solid_rainbow(key, pixels):
     h = 0
-    while key == _state_key():
+    while key == state_key():
         h = h % 255
         color = wheel(h)
         pixels.fill(color)
@@ -70,13 +70,35 @@ def mode_per_step(key, pixels):
     time.sleep(5)
 
 
-def mode_sliding_rainbow(key, pixels):
+def mode_sliding_circle_rainbow(key, pixels):
     h = 0
-    while key == _state_key():
+    while key == state_key():
         for i in range(0, pixels.n):
             hue = (h+i) % 255
             color = wheel(hue)
-            pixels[i] = color
+            set_pixel_circle(pixels, i, color)
         pixels.show()
         time.sleep(0.01)
         h += 10
+
+
+def mode_nyan_cat(key, pixels):
+    nyan_pixels = [
+        (255, 255, 255)*20,
+        (255, 0, 0)*5,
+        (255, 88, 0)*5,
+        (255, 255, 0)*5,
+        (0, 255, 0)*5,
+        (0, 0, 255)*5,
+        (255, 0, 255)*5,
+    ]
+
+    offset = 0
+    while key == state_key():
+        pixels.fill((0, 0, 0))
+        for i in range(0, len(nyan_pixels)):
+            # pixels[i + offset] = nyan_pixels[i]
+            set_pixel_circle(pixels, i+offset, nyan_pixels[i])
+        pixels.show()
+        time.sleep(0.01)
+        offset += 1

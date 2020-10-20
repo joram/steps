@@ -1,23 +1,16 @@
 import React from 'react';
-import {Button} from "semantic-ui-react";
+import {List, Button} from "semantic-ui-react";
 
 
-function do_solid_rainbow() {
-    update_mode({mode: "solid_rainbow"})
-}
+function do_solid_rainbow() { update_mode({mode: "solid_rainbow"}) }
 
-function do_sliding_rainbow() {
-    update_mode({mode: "sliding_rainbow"})
-}
+function do_sliding_rainbow() { update_mode({mode: "sliding_rainbow"}) }
 
-function do_off() {
-    update_mode({mode: "off"})
-}
+function do_off() { update_mode({mode: "off"}) }
 
-function do_per_step() {
-    update_mode({mode: "per_step"})
-}
+function do_per_step() { update_mode({mode: "per_step"}) }
 
+function do_nyan_cat() { update_mode({mode: "nyan_cat"}) }
 
 function do_halloween() {
     update_mode({
@@ -46,24 +39,14 @@ function update_mode(state){
 export function PrebuildModesPage() {
   return (
     <div className="App">
-        <Button onClick={do_solid_rainbow}>Solid Rainbow</Button>
-        <br/>
-        <br/>
-
-        <Button onClick={do_sliding_rainbow}>Sliding Rainbow</Button>
-       <br/>
-        <br/>
-
-        <Button onClick={do_halloween}>Halloween</Button>
-        <br/>
-        <br/>
-
-        <Button onClick={do_per_step}>Per Step</Button>
-        <br/>
-        <br/>
-
-        <Button onClick={do_off}>Off</Button>
-
+        <List>
+            <List.Item><Button onClick={do_solid_rainbow}>Solid Rainbow</Button></List.Item>
+            <List.Item><Button onClick={do_sliding_rainbow}>Sliding Rainbow</Button></List.Item>
+            <List.Item><Button onClick={do_halloween}>Halloween</Button></List.Item>
+            <List.Item><Button onClick={do_per_step}>Per Step</Button></List.Item>
+            <List.Item><Button onClick={do_nyan_cat}>Nyan Cat</Button></List.Item>
+            <List.Item><Button onClick={do_off}>Off</Button></List.Item>
+        </List>
     </div>
   );
 }

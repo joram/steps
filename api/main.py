@@ -1,17 +1,23 @@
 import atexit
-import json
 import os
+import threading
+import time
+
+import board
 from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
 from neopixel import NeoPixel
-import board
-import threading
-import time
-import colorsys
-import json
 
-from modes import mode_solid_rainbow, mode_fading, mode_solid, mode_sliding_rainbow, mode_off, mode_per_step
-from utils import _state_key, set_state, get_state
+from modes import (
+    mode_solid_rainbow,
+    mode_fading,
+    mode_solid,
+    mode_sliding_circle_rainbow,
+    mode_off,
+    mode_per_step,
+    mode_nyan_cat,
+)
+from utils import state_key, set_state, get_state
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 build_dir = os.path.join(dir_path, "build")
@@ -36,32 +42,30 @@ def state_view():
         state = request.json.get("state")
         set_state(state)
         print(state)
-    return jsonify(state)
+    return jsonify(get_state())
 
 
 def drive_leds():
     global done
     key = ""
     while not done:
-        new_key = _state_key()
+        new_key = state_key()
         if new_key != key:
             key = new_key
             state = get_state()
             mode = state.get("mode", "solid")
             print(f"change in state!: {state}")
-            if mode == "solid":
-                worker_thread = threading.Thread(target=mode_solid, args=(key, pixels))
-            if mode == "off":
-                worker_thread = threading.Thread(target=mode_off, args=(key, pixels))
-            if mode == "fading":
-                worker_thread = threading.Thread(target=mode_fading, args=(key, pixels))
-            if mode == "solid_rainbow":
-                worker_thread = threading.Thread(target=mode_solid_rainbow, args=(key, pixels))
-            if mode == "sliding_rainbow":
-                worker_thread = threading.Thread(target=mode_sliding_rainbow, args=(key, pixels))
-            if mode == "per_steps":
-                worker_thread = threading.Thread(target=mode_per_steps, args=(key, pixels))
+            func = {
+                "off": mode_off,
+                "solid": mode_solid,
+                "fading": mode_fading,
+                "solid_rainbow": mode_solid_rainbow,
+                "sliding_rainbow": mode_sliding_circle_rainbow,
+                "per_step": mode_per_step,
+                "nyan_cat": mode_nyan_cat,
+            }.get(mode, mode_solid)
 
+            worker_thread = threading.Thread(target=func, args=(key, pixels))
             worker_thread.daemon = True
             worker_thread.start()
 
@@ -72,7 +76,6 @@ def drive_leds():
 
 @app.before_first_request
 def start_worker():
-    global thread
     thread = threading.Thread(target=drive_leds)
     thread.daemon = True                            # Daemonize thread
     thread.start()                                  # Start the execution

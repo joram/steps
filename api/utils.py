@@ -16,7 +16,7 @@ def get_state():
     return state
 
 
-def _state_key():
+def state_key():
     return json.dumps(get_state(), sort_keys=True)
 
 
@@ -47,3 +47,8 @@ def wheel(pos):
     pos -= 170
     return (0, pos * 3, 255 - pos * 3)
 
+
+def set_pixel_circle(pixels, i, color):
+    if i > 150:
+        i = 150 + (150 - i)
+    pixels[i] = color
