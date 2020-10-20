@@ -55,7 +55,6 @@ def drive_leds():
             state = get_state()
             mode = state.get("mode", "solid")
             print(f"change in state!: {state}")
-<<<<<<< HEAD
             func = {
                 "off": mode_off,
                 "solid": mode_solid,
@@ -67,21 +66,6 @@ def drive_leds():
             }.get(mode, mode_solid)
 
             worker_thread = threading.Thread(target=func, args=(key, pixels))
-=======
-            if mode == "solid":
-                worker_thread = threading.Thread(target=mode_solid, args=(key, pixels))
-            if mode == "off":
-                worker_thread = threading.Thread(target=mode_off, args=(key, pixels))
-            if mode == "fading":
-                worker_thread = threading.Thread(target=mode_fading, args=(key, pixels))
-            if mode == "solid_rainbow":
-                worker_thread = threading.Thread(target=mode_solid_rainbow, args=(key, pixels))
-            if mode == "sliding_rainbow":
-                worker_thread = threading.Thread(target=mode_sliding_rainbow, args=(key, pixels))
-            if mode == "per_step":
-                worker_thread = threading.Thread(target=mode_per_step, args=(key, pixels))
-
->>>>>>> a589f4999a2ddc6c232eb3cb7d27ecd18516c3a9
             worker_thread.daemon = True
             worker_thread.start()
 

@@ -53,6 +53,7 @@ def wheel(pos):
 
 
 def set_pixel_circle(pixels, i, color):
-    if i > 150:
-        i = 150 + (150 - i)
+    if i < 150:
+        i = 150 - i - 1
     pixels[i] = color
+
