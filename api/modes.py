@@ -32,8 +32,14 @@ def mode_fading(key, pixels):
     c2 = _color_tuple(colors[1])
     i = 0
     delta = 1
+<<<<<<< HEAD
     while key == state_key():
         color = _color_between(c1, c2, i/100)
+=======
+    while key == _state_key():
+        color = _color_between(c1, c2, float(i)/100.0)
+        print(color)
+>>>>>>> a589f4999a2ddc6c232eb3cb7d27ecd18516c3a9
         pixels.fill(color)
         pixels.show()
         time.sleep(0.01)
@@ -57,9 +63,9 @@ def mode_solid_rainbow(key, pixels):
 
 def mode_per_step(key, pixels):
     colors = [
-        (255, 0, 0),
-        (0, 255, 0),
-        (0, 0, 255),
+        (255, 50, 0),
+        (0, 0, 0),
+      #  (0, 0, 255),
     ]
     o = int(pixels.n/2)
     for i in range(0, o):
@@ -79,6 +85,7 @@ def mode_sliding_circle_rainbow(key, pixels):
             set_pixel_circle(pixels, i, color)
         pixels.show()
         time.sleep(0.01)
+<<<<<<< HEAD
         h += 10
 
 
@@ -102,3 +109,6 @@ def mode_nyan_cat(key, pixels):
         pixels.show()
         time.sleep(0.01)
         offset += 1
+=======
+        h += 1
+>>>>>>> a589f4999a2ddc6c232eb3cb7d27ecd18516c3a9
