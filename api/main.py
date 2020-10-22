@@ -18,6 +18,8 @@ from modes import (
     mode_nyan_cat,
 )
 from utils import state_key, set_state, get_state
+from button import register_button
+
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 build_dir = os.path.join(dir_path, "build")
@@ -88,6 +90,7 @@ def stop_leds():
 
 
 if __name__ == '__main__':
+    register_button()
     pixels.fill((255, 255, 255))
     atexit.register(stop_leds)
     app.run(host="0.0.0.0", debug=True)
