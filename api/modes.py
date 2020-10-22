@@ -32,14 +32,9 @@ def mode_fading(key, pixels):
     c2 = _color_tuple(colors[1])
     i = 0
     delta = 1
-<<<<<<< HEAD
-    while key == state_key():
-        color = _color_between(c1, c2, i/100)
-=======
     while key == _state_key():
         color = _color_between(c1, c2, float(i)/100.0)
         print(color)
->>>>>>> a589f4999a2ddc6c232eb3cb7d27ecd18516c3a9
         pixels.fill(color)
         pixels.show()
         time.sleep(0.01)
@@ -85,30 +80,33 @@ def mode_sliding_circle_rainbow(key, pixels):
             set_pixel_circle(pixels, i, color)
         pixels.show()
         time.sleep(0.01)
-<<<<<<< HEAD
-        h += 10
+        h += 1
 
 
 def mode_nyan_cat(key, pixels):
-    nyan_pixels = [
-        (255, 255, 255)*20,
-        (255, 0, 0)*5,
-        (255, 88, 0)*5,
-        (255, 255, 0)*5,
-        (0, 255, 0)*5,
-        (0, 0, 255)*5,
-        (255, 0, 255)*5,
-    ]
+    x = 3
+    nyan_pixels = []
+    for i in range(0, x*2):
+        nyan_pixels.append((255, 255, 255))
+    for i in range(0, x):
+        nyan_pixels.append((255, 0, 0))
+    for i in range(0, x):
+        nyan_pixels.append((255, 88, 0))
+    for i in range(0, x):
+        nyan_pixels.append((255, 255, 0))
+    for i in range(0, x):
+        nyan_pixels.append((0, 255, 0))
+    for i in range(0, x):
+        nyan_pixels.append((0, 0, 255))
+    for i in range(0, x):
+        nyan_pixels.append((255, 0, 255))
 
     offset = 0
     while key == state_key():
+        offset = offset % (pixels.n)
         pixels.fill((0, 0, 0))
         for i in range(0, len(nyan_pixels)):
-            # pixels[i + offset] = nyan_pixels[i]
-            set_pixel_circle(pixels, i+offset, nyan_pixels[i])
+            set_pixel_circle(pixels, (i+offset) % pixels.n, nyan_pixels[i])
         pixels.show()
         time.sleep(0.01)
-        offset += 1
-=======
-        h += 1
->>>>>>> a589f4999a2ddc6c232eb3cb7d27ecd18516c3a9
+        offset -= 1
