@@ -19,7 +19,7 @@ from modes import (
 )
 from utils import state_key, set_state, get_state
 from button import register_button
-
+from slack_util import post_message_to_lack
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 build_dir = os.path.join(dir_path, "build")
@@ -89,8 +89,16 @@ def stop_leds():
     pixels.fill((0, 0, 0))
 
 
+def button_callback():
+    post_message_to_lack()
+
+    set_state({"mode": "nyan_cat"})
+    time.sleep(10)
+    set_state({"mode": "per_step"})
+
+
 if __name__ == '__main__':
-    register_button()
+    register_button(button_callback)
     pixels.fill((255, 255, 255))
     atexit.register(stop_leds)
     app.run(host="0.0.0.0", debug=True)
