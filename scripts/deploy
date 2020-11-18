@@ -13,9 +13,7 @@ read -r -p "Commit message?" response
 echo "pushing '$response'"
 git add .
 git commit -m "$response"
-git push origin master
+git push origin main
 
 
-
-
-sroot@192.168.1.1sh pi@steps 'uptime'
+ssh ubuntu@192.168.1.78 'cd steps; git pull origin main'
