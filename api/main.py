@@ -4,8 +4,6 @@ import threading
 import time
 import datetime
 
-from api.modes import mode_two_nyan_cats
-
 try:
     import board
     from neopixel import NeoPixel
@@ -16,13 +14,15 @@ from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
 
 from modes import (
-    mode_solid_rainbow, 
+    mode_solid_rainbow,
     mode_fading,
     mode_solid,
     mode_sliding_circle_rainbow,
     mode_off,
     mode_per_step,
     mode_nyan_cat,
+    mode_two_nyan_cats,
+    mode_solid_sparkly,
 )
 from utils import state_key, set_state, get_state
 from slack_util import post_message_to_lack
@@ -82,11 +82,12 @@ def drive_leds():
                 "off": mode_off,
                 "solid": mode_solid,
                 "fading": mode_fading,
-                "solid_rainbonyan_catw": mode_solid_rainbow,
+                "solid_rainbow": mode_solid_rainbow,
                 "sliding_rainbow": mode_sliding_circle_rainbow,
                 "per_step": mode_per_step,
                 "nyan_cat": mode_nyan_cat,
                 "two_nyan_cats": mode_two_nyan_cats,
+                "solid_sparkly": mode_solid_sparkly,
             }.get(mode, mode_solid)
 
             worker_thread = threading.Thread(target=func, args=(key, pixels))

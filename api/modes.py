@@ -132,6 +132,11 @@ def mode_two_nyan_cats(key, pixels):
         offset -= 1
 
 
+def mode_solid_sparkly(frames, pixels):
+    pixels.fill((0, 0, 255))
+    pass
+
+
 def mode_animation(frames, pixels):
     while 1:
         for frame in frames:
