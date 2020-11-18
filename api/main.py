@@ -2,6 +2,7 @@ import atexit
 import os
 import threading
 import time
+import datetime
 
 import board
 from flask import Flask, request, send_from_directory, jsonify
@@ -76,7 +77,6 @@ def drive_leds():
     pixels.fill((0, 0, 0))
 
 
-@app.before_first_request
 def start_worker():
     thread = threading.Thread(target=drive_leds)
     thread.daemon = True                            # Daemonize thread
@@ -90,17 +90,22 @@ def stop_leds():
 
 
 def button_callback():
-    post_message_to_lack()
-
+    date_time = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+    post_message_to_lack(f"@here button pressed! `{date_time}`")
     set_state({"mode": "nyan_cat"})
     time.sleep(10)
     set_state({"mode": "per_step"})
 
 
 if __name__ == '__main__':
-    register_button(button_callback)
-    pixels.fill((255, 255, 255))
-    atexit.register(stop_leds)
+
+    if os.getenv('WERKZEUG_RUN_MAIN') == 'true':
+        post_message_to_lack("stairs pi has booted")
+        register_button(button_callback)
+        pixels.fill((255, 255, 255))
+        atexit.register(stop_leds)
+        start_worker()
+
     app.run(host="0.0.0.0", debug=True)
 
 
