@@ -123,11 +123,11 @@ def mode_nyan_cat(key, pixels):
 def mode_nyan_cats(key, pixels):
     nyan_pixels = _nyan_pixels()
     offset = 0
-    num_cats = 4
+    num_cats = random.randint(2, 8)
     while key == state_key():
         offset = offset % pixels.n
         pixels.fill((0, 0, 0))
-        for i in range(1, num_cats+1):
+        for i in range(0, num_cats-1):
             _set_pixels(offset + int(pixels.n/num_cats)*i, pixels, nyan_pixels)
         pixels.show()
         time.sleep(0.01)
