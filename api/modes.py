@@ -123,18 +123,18 @@ def mode_nyan_cat(key, pixels):
 def mode_nyan_cats(key, pixels):
     nyan_pixels = _nyan_pixels()
     offset = 0
-    num_cats = random.randint(2, 10)
+    num_cats = 4
     while key == state_key():
         offset = offset % pixels.n
         pixels.fill((0, 0, 0))
-        for i in range(0, num_cats):
-            _set_pixels(offset + int(300/(i+1)), pixels, nyan_pixels)
+        for i in range(1, num_cats+1):
+            _set_pixels(offset + int(pixels.n/i), pixels, nyan_pixels)
         pixels.show()
         time.sleep(0.01)
         offset -= 1
 
 
-def mode_solid_sparkly(frames, pixels):
+def mode_solid_sparkly(key, pixels):
     pixels.fill((70, 250, 50))
     pixels.show()
     time.sleep(10)

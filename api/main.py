@@ -95,6 +95,7 @@ def drive_leds():
                 "solid_sparkly": mode_solid_sparkly,
             }.get(mode, mode_solid)
 
+
             worker_thread = threading.Thread(target=func, args=(key, pixels))
             worker_thread.daemon = True
             worker_thread.start()

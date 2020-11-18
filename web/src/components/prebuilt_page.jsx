@@ -25,10 +25,14 @@ function do_halloween() {
 }
 
 
+
+
+
+
 function do_solid_sparkly() {
     update_mode({
         mode: "solid_sparkly",
-        primary: {r:255, g:0, b:0},
+        primary: {r:10, g:255, b:30},
         sparkles: {r:255, g:255, b:255},
     })
 }
