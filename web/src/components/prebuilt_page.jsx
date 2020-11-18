@@ -12,7 +12,7 @@ function do_per_step() { update_mode({mode: "per_step"}) }
 
 function do_nyan_cat() { update_mode({mode: "nyan_cat"}) }
 
-function do_two_nyan_cats() { update_mode({mode: "two_nyan_cats"}) }
+function do_nyan_cats() { update_mode({mode: "nyan_cats"}) }
 
 function do_halloween() {
     update_mode({
@@ -56,7 +56,7 @@ export function PrebuildModesPage() {
             <List.Item><Button onClick={do_halloween}>Halloween</Button></List.Item>
             <List.Item><Button onClick={do_per_step}>Per Step</Button></List.Item>
             <List.Item><Button onClick={do_nyan_cat}>Nyan Cat</Button></List.Item>
-            <List.Item><Button onClick={do_two_nyan_cats}>Two Nyan Cats</Button></List.Item>
+            <List.Item><Button onClick={do_nyan_cats}>Nyan Cats</Button></List.Item>
             <List.Item><Button onClick={do_solid_sparkly}>Solid Sparkly</Button></List.Item>
             <List.Item><Button onClick={do_off}>Off</Button></List.Item>
         </List>

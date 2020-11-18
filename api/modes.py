@@ -1,3 +1,4 @@
+import random
 import time
 
 from utils import wheel, get_state, _color_tuple, state_key, _color_between, set_pixel_circle
@@ -119,21 +120,22 @@ def mode_nyan_cat(key, pixels):
         offset -= 1
 
 
-def mode_two_nyan_cats(key, pixels):
+def mode_nyan_cats(key, pixels):
     nyan_pixels = _nyan_pixels()
     offset = 0
+    num_cats = random.randint(2, 10)
     while key == state_key():
         offset = offset % pixels.n
         pixels.fill((0, 0, 0))
-        _set_pixels(offset, pixels, nyan_pixels)
-        _set_pixels(offset+150, pixels, nyan_pixels)
+        for i in range(0, num_cats):
+            _set_pixels(offset + int(300/num_cats), pixels, nyan_pixels)
         pixels.show()
         time.sleep(0.01)
         offset -= 1
 
 
 def mode_solid_sparkly(frames, pixels):
-    pixels.fill((0, 0, 255))
+    pixels.fill((70, 250, 50))
     pixels.show()
     time.sleep(10)
 

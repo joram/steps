@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
 import {SolidPage} from "./components/solid_page";
-import {PrebuildModesPage} from "./components/rainbow_page";
+import {PrebuildModesPage} from "./components/prebuilt_page";
 import {FadingPage} from "./components/fading_page";
 import {Menu, Dropdown, Segment, Container} from "semantic-ui-react";
 import {

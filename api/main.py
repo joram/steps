@@ -21,7 +21,7 @@ from modes import (
     mode_off,
     mode_per_step,
     mode_nyan_cat,
-    mode_two_nyan_cats,
+    mode_nyan_cats,
     mode_solid_sparkly,
 )
 from utils import state_key, set_state, get_state
@@ -68,6 +68,11 @@ def file_view():
     return jsonify(get_state())
 
 
+def delay_off(minutes):
+    time.sleep(60*minutes)
+    set_state({"mode": "off"})
+
+
 def drive_leds():
     global done
     key = ""
@@ -86,13 +91,17 @@ def drive_leds():
                 "sliding_rainbow": mode_sliding_circle_rainbow,
                 "per_step": mode_per_step,
                 "nyan_cat": mode_nyan_cat,
-                "two_nyan_cats": mode_two_nyan_cats,
+                "nyan_cats": mode_nyan_cats,
                 "solid_sparkly": mode_solid_sparkly,
             }.get(mode, mode_solid)
 
             worker_thread = threading.Thread(target=func, args=(key, pixels))
             worker_thread.daemon = True
             worker_thread.start()
+
+            kill_thread = threading.Thread(target=delay_off, args=(60*2,))
+            kill_thread.daemon = True
+            kill_thread.start()
 
         time.sleep(0.1)
 
