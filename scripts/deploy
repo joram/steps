@@ -1,0 +1,19 @@
+read -r -p "Build UI? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY])
+        ./scripts/build
+        ;;
+    *)
+        echo "skipping UI build"
+        ;;
+esac
+
+
+read -r -p "Commit message?" response
+echo "pushing '$response'"
+git add .
+git commit -m "$response"
+git push origin main
+
+
+ssh pi@steps 'uptime'

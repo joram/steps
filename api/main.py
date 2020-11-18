@@ -3,10 +3,14 @@ import os
 import threading
 import time
 
-import board
+try:
+    import board
+    from neopixel import NeoPixel
+    from button import register_button
+except:
+    pass
 from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
-from neopixel import NeoPixel
 
 from modes import (
     mode_solid_rainbow,
@@ -18,7 +22,6 @@ from modes import (
     mode_nyan_cat,
 )
 from utils import state_key, set_state, get_state
-from button import register_button
 from slack_util import post_message_to_lack
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -27,7 +30,11 @@ app = Flask(__name__, static_folder=build_dir)
 CORS(app)
 
 done = False
-pixels = NeoPixel(board.D18, 300, auto_write=False)
+pixels = None
+try:
+    pixels = NeoPixel(board.D18, 300, auto_write=False)
+except:
+    pass
 
 
 @app.route('/', defaults={'path': ''})
@@ -44,6 +51,17 @@ def state_view():
         state = request.json.get("state")
         set_state(state)
         print(state)
+    return jsonify(get_state())
+
+
+@app.route('/api/v0/file', methods=["POST"])
+def file_view():
+    state = request.files
+    print(state)
+    import pdb
+    pdb.set_trace()
+    # set_state(state)
+    # print(state)
     return jsonify(get_state())
 
 
@@ -98,9 +116,8 @@ def button_callback():
 
 
 if __name__ == '__main__':
-    register_button(button_callback)
-    pixels.fill((255, 255, 255))
-    atexit.register(stop_leds)
+    if pixels is not None:
+        register_button(button_callback)
+        pixels.fill((255, 255, 255))
+        atexit.register(stop_leds)
     app.run(host="0.0.0.0", debug=True)
-
-

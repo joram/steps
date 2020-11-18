@@ -11,6 +11,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {FilePage} from "./components/file_page";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                           <Dropdown.Item as={Link} to="/solid">Solid</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/fading">Fading</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/prebuilt">Prebuilt Modes</Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/file">File Upload</Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </Menu>
@@ -30,6 +32,7 @@ function App() {
                 <Segment attached='bottom'>
                     <Container>
                         <Switch>
+                            <Route path="/file"><FilePage/></Route>
                             <Route path="/solid"><SolidPage/></Route>
                             <Route path="/prebuilt"><PrebuildModesPage/></Route>
                             <Route path="/fading"><FadingPage/></Route>

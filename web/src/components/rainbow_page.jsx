@@ -23,6 +23,15 @@ function do_halloween() {
 }
 
 
+function do_solid_sparkly() {
+    update_mode({
+        mode: "solid_sparkly",
+        primary: {r:255, g:0, b:0},
+        sparkles: {r:255, g:255, b:255},
+    })
+}
+
+
 function update_mode(state){
     const requestOptions = {
         method: 'POST',
@@ -45,6 +54,7 @@ export function PrebuildModesPage() {
             <List.Item><Button onClick={do_halloween}>Halloween</Button></List.Item>
             <List.Item><Button onClick={do_per_step}>Per Step</Button></List.Item>
             <List.Item><Button onClick={do_nyan_cat}>Nyan Cat</Button></List.Item>
+            <List.Item><Button onClick={do_solid_sparkly}>Solid Sparkly</Button></List.Item>
             <List.Item><Button onClick={do_off}>Off</Button></List.Item>
         </List>
     </div>

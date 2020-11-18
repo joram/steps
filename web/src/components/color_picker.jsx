@@ -1,5 +1,5 @@
 import React from 'react';
-import {BlockPicker} from 'react-color';
+import {BlockPicker, CirclePicker} from 'react-color';
 
 
 
@@ -31,7 +31,7 @@ export class ColorPicker extends React.Component {
                 height: "50px",
                 marginBottom: "10px"
             }}/>
-            <BlockPicker onChange={this.colorChanged.bind(this)}/>
+            <CirclePicker onChange={this.colorChanged.bind(this)}/>
         </>
         );
     }

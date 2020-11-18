@@ -110,3 +110,15 @@ def mode_nyan_cat(key, pixels):
         pixels.show()
         time.sleep(0.01)
         offset -= 1
+
+
+def mode_animation(frames, pixels):
+    while 1:
+        for frame in frames:
+            if len(frame) == 300:
+                for i in range(0, 300):
+                    pixels[i] = frame[i]
+                pixels.show()
+            else:
+                pixels.fill((255, 105, 180))
+            time.sleep(0.01)
