@@ -103,6 +103,7 @@ def _nyan_pixels(x=3):
     return nyan_pixels
 
 
+## shortcut to set list of pixels using circle if necessary
 def _set_pixels(offset, pixels, p):
     for i in range(0, len(p)):
         set_pixel_circle(pixels, (i + offset) % pixels.n, p[i])
@@ -135,9 +136,30 @@ def mode_nyan_cats(key, pixels):
 
 
 def mode_solid_sparkly(key, pixels):
-    pixels.fill((70, 250, 50))
-    pixels.show()
-    time.sleep(10)
+
+    state = get_state()
+    primary = state.get("primary")
+    sparkles = state.get("sparkles")
+
+    while key == state_key():
+        pixels.fill((
+            primary.get("r", 255),
+            primary.get("g", 255),
+            primary.get("b", 255),
+        ))
+        for i in random.sample(range(0, 300), 10):
+            pixels[i].fill((
+                sparkles.get("r", 255),
+                sparkles.get("g", 255),
+                sparkles.get("b", 255),
+            ))
+        pixels.show()
+        time.sleep(1)
+
+
+
+def mode_raindrops(key, pixels):
+    time.sleep(0.01)
 
 
 def mode_animation(frames, pixels):
