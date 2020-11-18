@@ -32,7 +32,7 @@ def mode_fading(key, pixels):
     c2 = _color_tuple(colors[1])
     i = 0
     delta = 1
-    while key == _state_key():
+    while key == state_key():
         color = _color_between(c1, c2, float(i)/100.0)
         print(color)
         pixels.fill(color)
@@ -134,7 +134,8 @@ def mode_two_nyan_cats(key, pixels):
 
 def mode_solid_sparkly(frames, pixels):
     pixels.fill((0, 0, 255))
-    pass
+    pixels.show()
+    time.sleep(10)
 
 
 def mode_animation(frames, pixels):
