@@ -13,15 +13,15 @@ def debounced_input(pin):
     zeros = 0
     for i in range(0, tries):
         bit=GPIO.input(pin)
-        if (bit == 1):
+        if bit == 1:
            ones = ones + 1
-           zeroes = 0
+           zeros = 0
         else:
-           zeroes = zeroes + 1
+           zeros = zeros + 1
            ones = 0
-        if (ones >=  3):
+        if ones >= 3:
             return False
-        if (zeroes >= 3):
+        if zeros >= 3:
             return True
         time.sleep(0.1) # wait a bit
 

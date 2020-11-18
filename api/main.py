@@ -132,7 +132,7 @@ def button_callback():
 if __name__ == '__main__':
     if os.getenv('WERKZEUG_RUN_MAIN') == 'true':
         post_message_to_lack("stairs pi has booted")
-        register_button(button_callback)
+        # register_button(button_callback)
         pixels.fill((255, 255, 255))
         atexit.register(stop_leds)
         start_worker()
