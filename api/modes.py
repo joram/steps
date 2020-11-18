@@ -128,7 +128,7 @@ def mode_nyan_cats(key, pixels):
         offset = offset % pixels.n
         pixels.fill((0, 0, 0))
         for i in range(1, num_cats+1):
-            _set_pixels(offset + int(pixels.n/i), pixels, nyan_pixels)
+            _set_pixels(offset + int(pixels.n/num_cats)*i, pixels, nyan_pixels)
         pixels.show()
         time.sleep(0.01)
         offset -= 1
