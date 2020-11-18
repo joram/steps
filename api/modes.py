@@ -83,10 +83,9 @@ def mode_sliding_circle_rainbow(key, pixels):
         h += 1
 
 
-def mode_nyan_cat(key, pixels):
-    x = 3
+def _nyan_pixels(x=3):
     nyan_pixels = []
-    for i in range(0, x*2):
+    for i in range(0, x * 2):
         nyan_pixels.append((255, 255, 255))
     for i in range(0, x):
         nyan_pixels.append((255, 0, 0))
@@ -100,13 +99,34 @@ def mode_nyan_cat(key, pixels):
         nyan_pixels.append((0, 0, 255))
     for i in range(0, x):
         nyan_pixels.append((255, 0, 255))
+    return nyan_pixels
 
+
+def _set_pixels(offset, pixels, p):
+    for i in range(0, len(p)):
+        set_pixel_circle(pixels, (i + offset) % pixels.n, p[i])
+
+
+def mode_nyan_cat(key, pixels):
+    nyan_pixels = _nyan_pixels()
     offset = 0
     while key == state_key():
-        offset = offset % (pixels.n)
+        offset = offset % pixels.n
         pixels.fill((0, 0, 0))
-        for i in range(0, len(nyan_pixels)):
-            set_pixel_circle(pixels, (i+offset) % pixels.n, nyan_pixels[i])
+        _set_pixels(offset, pixels, nyan_pixels)
+        pixels.show()
+        time.sleep(0.01)
+        offset -= 1
+
+
+def mode_two_nyan_cats(key, pixels):
+    nyan_pixels = _nyan_pixels()
+    offset = 0
+    while key == state_key():
+        offset = offset % pixels.n
+        pixels.fill((0, 0, 0))
+        _set_pixels(offset, pixels, nyan_pixels)
+        _set_pixels(offset+150, pixels, nyan_pixels)
         pixels.show()
         time.sleep(0.01)
         offset -= 1

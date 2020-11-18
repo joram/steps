@@ -3,6 +3,8 @@ import os
 import threading
 import time
 
+from api.modes import mode_two_nyan_cats
+
 try:
     import board
     from neopixel import NeoPixel
@@ -79,10 +81,11 @@ def drive_leds():
                 "off": mode_off,
                 "solid": mode_solid,
                 "fading": mode_fading,
-                "solid_rainbow": mode_solid_rainbow,
+                "solid_rainbonyan_catw": mode_solid_rainbow,
                 "sliding_rainbow": mode_sliding_circle_rainbow,
                 "per_step": mode_per_step,
                 "nyan_cat": mode_nyan_cat,
+                "two_nyan_cats": mode_two_nyan_cats,
             }.get(mode, mode_solid)
 
             worker_thread = threading.Thread(target=func, args=(key, pixels))
