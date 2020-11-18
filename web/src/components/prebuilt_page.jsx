@@ -33,7 +33,7 @@ function do_solid_sparkly() {
     update_mode({
         mode: "solid_sparkly",
         //TODO: get primary, sparkles from UI
-        primary: {r:10, g:255, b:30},
+        primary: {r:0, g:50, b:0},
         sparkles: {r:255, g:255, b:255},
     })
 }
