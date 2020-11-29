@@ -138,67 +138,38 @@ def mode_nyan_cats(key, pixels):
 def mode_solid_sparkly(key, pixels):
     #####
     # To make John happy (he's worried you'll think he wrote this):
-    # This function was written by Caitlin, who has not coded in rather a long time, which means this code is not
-    # nearly as elegant as he would have it be. And he can fucking deal with it. <3
-    # I just want pretty lights, okay? So sue me.
+    # This function was written by Caitlin, who has not coded in rather
+    # a long time. And who thinks all this formatting bullshit is exactly that.
+    # But it means this code is not nearly as elegant as he would have it be.
+    # And he can fucking deal with it. <3
     ######
     state = get_state()
     primary = state.get("primary")
     sparkles = state.get("sparkles")
-    fade_in = False
+    primary_color = (
+        primary.get("r", 255),
+        primary.get("g", 255),
+        primary.get("b", 255),
+    )
+    sparkles_color = (
+        sparkles.get("r", 255),
+        sparkles.get("g", 255),
+        sparkles.get("b", 255),
+    )
 
     while key == state_key():
 
+        pixels.fill(primary_color)
+
         selected_pixels = random.sample(range(0, 300), 10)
-        pixels.fill((
-            primary.get("r", 255),
-            primary.get("g", 255),
-            primary.get("b", 255),
-        ))
+        for i in selected_pixels:
+            pixels[i] = sparkles_color
 
-        if state.get("fadingSparkles"):
-            # TODO: make John put his fade calc into its own function
-            # color = _color_between(c1, c2, float(i)/100.0)
-            # TODO: fix while key == state_key(): here
-            while fade_in:
-                if key != state_key():
-                    return
-                # do fade
-                f = 0
-                # color = _color_between(primary, sparkles, float(0) / 100.0)
-                # # compare color to sparkles
-                # for i in selected_pixels:
-                #     pixels[i] = color
-                #     pass
-                # # if pixel value is same as sparkles, fade_in = false and sleep
-                # pixels.show()
-                time.sleep(.01)
-            while not fade_in:
-                if key != state_key():
-                    return
-                # fade out again
-                # if pixel value is same as primary, fade_in = true and sleep
-                pixels.show()
-
-            time.sleep(1)
-        else:
-            for i in selected_pixels:
-                pixels[i] = (
-                    sparkles.get("r", 255),
-                    sparkles.get("g", 255),
-                    sparkles.get("b", 255),
-                )
-            pixels.show()
-            time.sleep(1)
+        pixels.show()
+        time.sleep(1)
 
 
 def mode_raindrops(key, pixels):
-    #####
-    # Caitlin did this function too. Deal with it.
-    # (•_•)
-    # ( •_•)>⌐□-□
-    # (⌐□_□)
-    #####
     time.sleep(0.01)
 
 
