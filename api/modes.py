@@ -157,16 +157,23 @@ def mode_solid_sparkly(key, pixels):
         sparkles.get("b", 255),
     )
 
+    pixels.fill(primary_color)
+    selected_pixels = random.sample(range(0, 300), 10)
+
     while key == state_key():
+        pixels[selected_pixels[0]].fill(primary_color)
+        selected_pixels.pop(0)
 
-        pixels.fill(primary_color)
+        new_pixel = random.randint(0, 300)
+        selected_pixels.append(new_pixel)
+        pixels[new_pixel].fill(sparkles_color)
 
-        selected_pixels = random.sample(range(0, 300), 10)
-        for i in selected_pixels:
-            pixels[i] = sparkles_color
+        # for i in selected_pixels:
+        #     pixels[i] = sparkles_color
+
 
         pixels.show()
-        time.sleep(1)
+        time.sleep(.25)
 
 
 def mode_raindrops(key, pixels):
