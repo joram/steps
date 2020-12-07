@@ -168,12 +168,43 @@ def mode_solid_sparkly(key, pixels):
         selected_pixels.append(new_pixel)
         pixels[new_pixel] = sparkles_color
 
-        # for i in selected_pixels:
-        #     pixels[i] = sparkles_color
-
-
         pixels.show()
         time.sleep(.25)
+
+
+def mode_chaos_colors(key, pixels):
+    #####
+    # A bunch of flashing colors - by Caitlin
+    #####
+    state = get_state()
+
+    # Init by setting all to random colors
+    # for i in pixels:
+    #     sparkles_color = (
+    #         random.randint(0, 249),
+    #         random.randint(0, 249),
+    #         random.randint(0, 249)
+    #     )
+    #     pixels[i] = sparkles_color
+    # time.sleep(.5)
+    #
+    # # Each .5s, change 10 pixels
+    # while key == state_key():
+    #     selected_pixels = random.sample(range(0, 300), 10)
+    #     for i in selected_pixels:
+    #         sparkles_color = (
+    #             random.randint(0, 249),
+    #             random.randint(0, 249),
+    #             random.randint(0, 249)
+    #         )
+    #         pixels[i] = sparkles_color
+    #     time.sleep(.5)
+
+    while key == state_key():
+        pixels.fill((0, 50, 0))
+
+    pixels.show()
+    time.sleep(1)
 
 
 def mode_raindrops(key, pixels):

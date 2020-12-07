@@ -2,7 +2,7 @@ import React from 'react';
 import {CirclePicker} from 'react-color';
 
 
-    
+
 export class ColorPicker extends React.Component {
 
     state = {
