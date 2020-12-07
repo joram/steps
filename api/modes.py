@@ -161,12 +161,12 @@ def mode_solid_sparkly(key, pixels):
     selected_pixels = random.sample(range(0, 300), 10)
 
     while key == state_key():
-        pixels[selected_pixels[0]].fill(primary_color)
+        pixels[selected_pixels[0]] = primary_color
         selected_pixels.pop(0)
 
         new_pixel = random.randint(0, 300)
         selected_pixels.append(new_pixel)
-        pixels[new_pixel].fill(sparkles_color)
+        pixels[new_pixel] = sparkles_color
 
         # for i in selected_pixels:
         #     pixels[i] = sparkles_color
