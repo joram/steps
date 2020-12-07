@@ -164,7 +164,7 @@ def mode_solid_sparkly(key, pixels):
         pixels[selected_pixels[0]] = primary_color
         selected_pixels.pop(0)
 
-        new_pixel = random.randint(0, 300)
+        new_pixel = random.randint(0, 299)
         selected_pixels.append(new_pixel)
         pixels[new_pixel] = sparkles_color
 
@@ -173,7 +173,7 @@ def mode_solid_sparkly(key, pixels):
 
 
         pixels.show()
-        time.sleep(.25)
+        #time.sleep(.25)
 
 
 def mode_raindrops(key, pixels):
