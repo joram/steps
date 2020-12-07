@@ -179,32 +179,28 @@ def mode_chaos_colors(key, pixels):
     state = get_state()
 
     # Init by setting all to random colors
-    # for i in pixels:
-    #     sparkles_color = (
-    #         random.randint(0, 249),
-    #         random.randint(0, 249),
-    #         random.randint(0, 249)
-    #     )
-    #     pixels[i] = sparkles_color
-    # time.sleep(.5)
-    #
-    # # Each .5s, change 10 pixels
-    # while key == state_key():
-    #     selected_pixels = random.sample(range(0, 300), 10)
-    #     for i in selected_pixels:
-    #         sparkles_color = (
-    #             random.randint(0, 249),
-    #             random.randint(0, 249),
-    #             random.randint(0, 249)
-    #         )
-    #         pixels[i] = sparkles_color
-    #     time.sleep(.5)
+    for i in pixels:
+        sparkles_color = (
+            random.randint(0, 249),
+            random.randint(0, 249),
+            random.randint(0, 249)
+        )
+        pixels[i] = sparkles_color
+    time.sleep(.5)
 
+    # Each .5s, change 10 pixels
     while key == state_key():
-        pixels.fill((0, 50, 0))
+        selected_pixels = random.sample(range(0, 300), 10)
+        for i in selected_pixels:
+            sparkles_color = (
+                random.randint(0, 249),
+                random.randint(0, 249),
+                random.randint(0, 249)
+            )
+            pixels[i] = sparkles_color
+        time.sleep(.5)
 
     pixels.show()
-    time.sleep(1)
 
 
 def mode_raindrops(key, pixels):
