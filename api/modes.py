@@ -173,7 +173,7 @@ def mode_solid_sparkly(key, pixels):
 
 
         pixels.show()
-        #time.sleep(.25)
+        time.sleep(.25)
 
 
 def mode_raindrops(key, pixels):
