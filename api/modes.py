@@ -200,7 +200,7 @@ def mode_chaos_colors(key, pixels):
             pixels[i] = sparkles_color
         time.sleep(.5)
 
-    pixels.show()
+        pixels.show()
 
 
 def mode_raindrops(key, pixels):
