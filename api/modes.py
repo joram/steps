@@ -178,26 +178,27 @@ def mode_chaos_colors(key, pixels):
     #####
     state = get_state()
 
+    def rand_color():
+        # return (
+        #     random.randint(0, 249),
+        #     random.randint(0, 249),
+        #     random.randint(0, 249)
+        # )
+        red = (255, 0, 0)
+        green = (0, 255, 0)
+        blue = (0, 0, 255)
+        return random.choice([red, green, blue])
+
     # Init by setting all to random colors
     for i in range(0, len(pixels)):
-        sparkles_color = (
-            random.randint(0, 249),
-            random.randint(0, 249),
-            random.randint(0, 249)
-        )
-        pixels[i] = sparkles_color
+        pixels[i] = rand_color()
     time.sleep(.5)
 
     # Each .5s, change 10 pixels
     while key == state_key():
         selected_pixels = random.sample(range(0, 300), 10)
         for i in selected_pixels:
-            sparkles_color = (
-                random.randint(0, 249),
-                random.randint(0, 249),
-                random.randint(0, 249)
-            )
-            pixels[i] = sparkles_color
+            pixels[i] = rand_color()
         time.sleep(.5)
 
         pixels.show()
