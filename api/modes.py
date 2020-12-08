@@ -179,7 +179,7 @@ def mode_chaos_colors(key, pixels):
     state = get_state()
 
     # Init by setting all to random colors
-    for i in pixels:
+    for i in range(0, len(pixels)):
         sparkles_color = (
             random.randint(0, 249),
             random.randint(0, 249),
