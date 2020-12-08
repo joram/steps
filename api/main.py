@@ -23,6 +23,7 @@ from modes import (
     mode_nyan_cat,
     mode_nyan_cats,
     mode_solid_sparkly,
+    mode_chaos_colors,
 )
 from utils import state_key, set_state, get_state
 from slack_util import post_message_to_lack
@@ -93,6 +94,7 @@ def drive_leds():
                 "nyan_cat": mode_nyan_cat,
                 "nyan_cats": mode_nyan_cats,
                 "solid_sparkly": mode_solid_sparkly,
+                "chaos_colors": mode_chaos_colors,
             }.get(mode, mode_solid)
 
 
