@@ -192,7 +192,7 @@ def mode_chaos_colors(key, pixels):
     # Init by setting all to random colors
     for i in range(0, len(pixels)):
         pixels[i] = rand_color()
-    time.sleep(.5)
+    time.sleep(.05)
 
     # Each .5s, change 10 pixels
     while key == state_key():
