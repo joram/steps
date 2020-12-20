@@ -179,15 +179,15 @@ def mode_chaos_colors(key, pixels):
     state = get_state()
 
     def rand_color():
-        # return (
-        #     random.randint(0, 254),
-        #     random.randint(0, 254),
-        #     random.randint(0, 254)
-        # )
-        red = (255, 0, 0)
-        green = (0, 255, 0)
-        blue = (0, 0, 255)
-        return random.choice([red, green, blue])
+        return (
+            random.randint(0, 254),
+            random.randint(0, 254),
+            random.randint(0, 254)
+        )
+        # red = (255, 0, 0)
+        # green = (0, 255, 0)
+        # blue = (0, 0, 255)
+        # return random.choice([red, green, blue])
 
     # Init by setting all to random colors
     for i in range(0, len(pixels)):
