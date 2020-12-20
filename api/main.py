@@ -97,14 +97,13 @@ def drive_leds():
                 "chaos_colors": mode_chaos_colors,
             }.get(mode, mode_solid)
 
-
             worker_thread = threading.Thread(target=func, args=(key, pixels))
             worker_thread.daemon = True
             worker_thread.start()
 
-            kill_thread = threading.Thread(target=delay_off, args=(60*2,))
-            kill_thread.daemon = True
-            kill_thread.start()
+            # kill_thread = threading.Thread(target=delay_off, args=(60*2,))
+            # kill_thread.daemon = True
+            # kill_thread.start()
 
         time.sleep(0.1)
 

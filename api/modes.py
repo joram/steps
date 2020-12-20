@@ -180,9 +180,9 @@ def mode_chaos_colors(key, pixels):
 
     def rand_color():
         # return (
-        #     random.randint(0, 249),
-        #     random.randint(0, 249),
-        #     random.randint(0, 249)
+        #     random.randint(0, 254),
+        #     random.randint(0, 254),
+        #     random.randint(0, 254)
         # )
         red = (255, 0, 0)
         green = (0, 255, 0)
