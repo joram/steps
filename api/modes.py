@@ -180,21 +180,12 @@ def mode_chaos_colors(key, pixels):
 
     def rand_color():
 
-        # removed this b/c everything was too bright / pastel -
-        # I suspect the variables were too close to each other
-        # return (
-        #     random.randint(0, 254),
-        #     random.randint(0, 254),
-        #     random.randint(0, 254)
-        # )
-
         rand_1 = random.randint(0, 254)
         rand_2 = random.randint(0, (254 - rand_1))
         rand_3 = 254 - (rand_1 + rand_2)
 
-        to_return = [rand_1, rand_2, rand_3]
-        random.shuffle(to_return)
-        return to_return
+        return rand_1, rand_2, rand_3
+
 
         # red = (255, 0, 0)
         # green = (0, 255, 0)
@@ -204,11 +195,11 @@ def mode_chaos_colors(key, pixels):
     # Init by setting all to random colors
     for i in range(0, len(pixels)):
         pixels[i] = rand_color()
-    time.sleep(.05)
+    time.sleep(.01)
 
     # Each .5s, change 10 pixels
     while key == state_key():
-        selected_pixels = random.sample(range(0, 300), 10)
+        selected_pixels = random.sample(range(0, 300), 20)
         for i in selected_pixels:
             pixels[i] = rand_color()
         time.sleep(.5)
