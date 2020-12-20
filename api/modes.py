@@ -179,11 +179,23 @@ def mode_chaos_colors(key, pixels):
     state = get_state()
 
     def rand_color():
-        return (
-            random.randint(0, 254),
-            random.randint(0, 254),
-            random.randint(0, 254)
-        )
+
+        # removed this b/c everything was too bright / pastel -
+        # I suspect the variables were too close to each other
+        # return (
+        #     random.randint(0, 254),
+        #     random.randint(0, 254),
+        #     random.randint(0, 254)
+        # )
+
+        rand_1 = random.randint(0, 254)
+        rand_2 = random.randint(0, (254 - rand_1))
+        rand_3 = 254 - (rand_1 + rand_2)
+
+        to_return = [rand_1, rand_2, rand_3]
+        random.shuffle(to_return)
+        return to_return
+
         # red = (255, 0, 0)
         # green = (0, 255, 0)
         # blue = (0, 0, 255)
