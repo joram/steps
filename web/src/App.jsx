@@ -12,6 +12,7 @@ import {
   Link
 } from "react-router-dom";
 import {FilePage} from "./components/file_page";
+import {SolidRoughPage} from "./components/solid_rough_page";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                         <Switch>
                             <Route path="/file"><FilePage/></Route>
                             <Route path="/solid"><SolidPage/></Route>
+                            <Route path="/solid_rough"><SolidRoughPage/></Route>
                             <Route path="/prebuilt"><PrebuildModesPage/></Route>
                             <Route path="/fading"><FadingPage/></Route>
                             <Route path="/"><SolidPage/></Route>

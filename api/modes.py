@@ -17,6 +17,19 @@ def mode_solid(key, pixels):
     time.sleep(5)
 
 
+def mode_solid_rough(key, pixels):
+    state = get_state()
+    color = state.get("color")
+    print(f"solid: {color}")
+    pixels.fill((
+        color.get("r", 255),
+        color.get("g", 255),
+        color.get("b", 255),
+    ))
+    pixels.show()
+    time.sleep(5)
+
+
 def mode_off(key, pixels):
     pixels.fill((0, 0, 0))
     pixels.show()

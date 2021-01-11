@@ -23,7 +23,7 @@ from modes import (
     mode_nyan_cat,
     mode_nyan_cats,
     mode_solid_sparkly,
-    mode_chaos_colors,
+    mode_chaos_colors, mode_solid_rough,
 )
 from utils import state_key, set_state, get_state
 from slack_util import post_message_to_lack
@@ -87,6 +87,7 @@ def drive_leds():
             func = {
                 "off": mode_off,
                 "solid": mode_solid,
+                "solid_rough": mode_solid_rough,
                 "fading": mode_fading,
                 "solid_rainbow": mode_solid_rainbow,
                 "sliding_rainbow": mode_sliding_circle_rainbow,
