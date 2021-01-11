@@ -23,6 +23,7 @@ function App() {
                       <Dropdown item icon='wrench' simple>
                         <Dropdown.Menu>
                           <Dropdown.Item as={Link} to="/solid">Solid</Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/solid_rough">Solid Rough</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/fading">Fading</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/prebuilt">Prebuilt Modes</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/file">File Upload</Dropdown.Item>
