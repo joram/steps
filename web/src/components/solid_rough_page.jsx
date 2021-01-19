@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ColorPicker} from "./color_picker";
 import NumberInput from 'semantic-ui-react-numberinput';
 
-let color = {r:0, b:0, g:0}
-let variance = 10
+const [color, setColor] = useState({r:0, b:0, g:0});
+const [variance, setVariance] = useState(10);
 
 function post(){
     const requestOptions = {
@@ -23,12 +23,12 @@ function post(){
 }
 
 function colorChanged(c) {
-    color = c.rgb
+    setColor(c.rgb)
     post()
 }
 
 function varianceChanged(n){
-    variance = n
+    setVariance(n)
     post()
 }
 
