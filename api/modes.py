@@ -21,7 +21,7 @@ def mode_solid(key, pixels):
 def mode_solid_rough(key, pixels):
     state = get_state()
     color = state.get("color")
-    variance = state.get("variance", 10)
+    variance = int(state.get("variance", 10))
     print(f"solid rough: {color}")
 
     for i in range(0, len(pixels)):
