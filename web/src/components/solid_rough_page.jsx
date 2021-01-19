@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {ColorPicker} from "./color_picker";
 import NumberInput from 'semantic-ui-react-numberinput';
 
-const [color, setColor] = useState({r:0, b:0, g:0});
+let c = {r:0, b:0, g:0}
+const [color, setColor] = useState(c);
 const [variance, setVariance] = useState(10);
 
 function post(){
