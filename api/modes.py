@@ -1,3 +1,4 @@
+import math
 import random
 import time
 
@@ -20,14 +21,24 @@ def mode_solid(key, pixels):
 def mode_solid_rough(key, pixels):
     state = get_state()
     color = state.get("color")
-    print(f"solid: {color}")
-    pixels.fill((
-        color.get("r", 255),
-        color.get("g", 255),
-        color.get("b", 255),
-    ))
+    variance = state.get("variance", 10)
+    print(f"solid rough: {color}")
+
+    for i in range(0, len(pixels)):
+
+        r = color.get("r", 255) + random.randint(-variance, variance)
+        g = color.get("g", 255) + random.randint(-variance, variance)
+        b = color.get("b", 255) + random.randint(-variance, variance)
+
+        r = min(255, max(0, r))
+        g = min(255, max(0, g))
+        b = min(255, max(0, b))
+
+        pixels[i] = (r, g, b)
+
+    time.sleep(.01)
+
     pixels.show()
-    time.sleep(5)
 
 
 def mode_off(key, pixels):
