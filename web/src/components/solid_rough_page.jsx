@@ -37,7 +37,7 @@ export function SolidRoughPage() {
     <div className="App">
       <ColorPicker color={{r:255, g:255, b:255}} onChangeComplete={ colorChanged } />
       <br/>
-      <NumberInput onChange={varianceChanged} />
+      <NumberInput value={variance} onChange={varianceChanged} />
     </div>
   );
 }
