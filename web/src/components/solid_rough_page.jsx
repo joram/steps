@@ -2,11 +2,7 @@ import React, {useState} from 'react';
 import {ColorPicker} from "./color_picker";
 import NumberInput from 'semantic-ui-react-numberinput';
 
-let c = {r:0, b:0, g:0}
-const [color, setColor] = useState(c);
-const [variance, setVariance] = useState(10);
-
-function post(){
+function post(color, variance){
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -23,17 +19,21 @@ function post(){
         })
 }
 
-function colorChanged(c) {
-    setColor(c.rgb)
-    post()
-}
-
-function varianceChanged(n){
-    setVariance(n)
-    post()
-}
 
 export function SolidRoughPage() {
+  const [variance, setVariance] = useState(10);
+  const [color, setColor] = useState( {r:0, b:0, g:0});
+
+  function colorChanged(c) {
+    setColor(c.rgb)
+    post(color, variance)
+  }
+
+  function varianceChanged(n){
+    setVariance(n)
+    post(color, variance)
+  }
+
   return (
     <div className="App">
       <ColorPicker color={{r:255, g:255, b:255}} onChangeComplete={ colorChanged } />
