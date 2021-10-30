@@ -1,7 +1,7 @@
 import random
 import time
 
-from api.slack_util import post_message_to_lack
+from slack_util import post_message_to_lack
 from button import register_button
 from utils import wheel, get_state, _color_tuple, state_key, _color_between, set_pixel_circle, set_state
 
