@@ -2,7 +2,8 @@ import math
 import random
 import time
 
-from utils import wheel, get_state, _color_tuple, state_key, _color_between, set_pixel_circle
+from api.button import register_button
+from utils import wheel, get_state, _color_tuple, state_key, _color_between, set_pixel_circle, set_state
 
 
 def mode_solid(key, pixels):
@@ -94,6 +95,69 @@ def mode_per_step(key, pixels):
         pixels[i + o] = colors[index]
     pixels.show()
     time.sleep(5)
+
+
+class HalloweenModes:
+    WAITING = "waiting"
+    RAINBOW = "rainbow"
+    NYANCAT = "nyancat"
+
+
+halloween_mode = HalloweenModes.WAITING
+
+
+def mode_halloween(key, pixels):
+    red = {"r": 255, "g": 0, "b": 0}
+    orange = {"r": 255, "g": 140, "b": 0}
+    c1 = _color_tuple(red)
+    c2 = _color_tuple(orange)
+    i = 0
+    delta = 1
+    h = 0
+    offset = 0
+
+    def start_rainbow():
+        global halloween_mode
+        halloween_mode = HalloweenModes.RAINBOW
+    register_button(start_rainbow)
+
+    while key == state_key():
+        global halloween_mode
+        if halloween_mode == HalloweenModes.WAITING:
+            color = _color_between(c1, c2, float(i) / 100.0)
+            print(color)
+            pixels.fill(color)
+            pixels.show()
+            time.sleep(0.01)
+            if i >= 100:
+                delta = -1
+            if i <= 0:
+                delta = 1
+            i += delta
+
+        if halloween_mode == HalloweenModes.RAINBOW:
+            for i in range(0, pixels.n):
+                hue = (h + i) % 255
+                color = wheel(hue)
+                set_pixel_circle(pixels, i, color)
+            pixels.show()
+            time.sleep(0.01)
+            h += 1
+            if h >= 100:
+                mode = HalloweenModes.NYANCAT
+
+        if halloween_mode == HalloweenModes.NYANCAT:
+            nyan_pixels = _nyan_pixels()
+            num_cats = 8
+            offset = offset % pixels.n
+            pixels.fill((0, 0, 0))
+            for i in range(0, num_cats):
+                _set_pixels(offset + int(pixels.n / num_cats) * i, pixels, nyan_pixels)
+            pixels.show()
+            time.sleep(0.01)
+            offset += 1
+            if offset >= 100:
+                mode = HalloweenModes.WAITING
 
 
 def mode_sliding_circle_rainbow(key, pixels):

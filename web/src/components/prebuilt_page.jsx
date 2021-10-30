@@ -14,15 +14,7 @@ function do_nyan_cat() { update_mode({mode: "nyan_cat"}) }
 
 function do_nyan_cats() { update_mode({mode: "nyan_cats"}) }
 
-function do_halloween() {
-    update_mode({
-        mode: "fading",
-        colors: [
-            {r:255, g:0, b:0},
-            {r:255, g:66, b:0},
-        ]
-    })
-}
+function do_halloween() {update_mode({mode: "halloween"}) }
 
 
 
