@@ -1,6 +1,7 @@
 import random
 import time
 
+from api.slack_util import post_message_to_lack
 from button import register_button
 from utils import wheel, get_state, _color_tuple, state_key, _color_between, set_pixel_circle, set_state
 
@@ -118,6 +119,7 @@ def mode_halloween(key, pixels):
     def start_rainbow():
         global halloween_mode
         halloween_mode = HalloweenModes.RAINBOW
+        post_message_to_lack("@here trick or treaters")
     register_button(start_rainbow)
 
     while key == state_key():
