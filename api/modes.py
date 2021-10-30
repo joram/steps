@@ -143,7 +143,7 @@ def mode_halloween(key, pixels):
             time.sleep(0.01)
             h += 1
             if h >= 100:
-                mode = HalloweenModes.NYANCAT
+                halloween_mode = HalloweenModes.NYANCAT
 
         if halloween_mode == HalloweenModes.NYANCAT:
             nyan_pixels = _nyan_pixels()
@@ -156,7 +156,7 @@ def mode_halloween(key, pixels):
             time.sleep(0.01)
             offset += 1
             if offset >= 100:
-                mode = HalloweenModes.WAITING
+                halloween_mode = HalloweenModes.WAITING
 
 
 def mode_sliding_circle_rainbow(key, pixels):
