@@ -1,8 +1,7 @@
-import math
 import random
 import time
 
-from api.button import register_button
+from button import register_button
 from utils import wheel, get_state, _color_tuple, state_key, _color_between, set_pixel_circle, set_state
 
 
