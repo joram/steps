@@ -104,6 +104,8 @@ class HalloweenModes:
 
 
 halloween_mode = HalloweenModes.WAITING
+h = 0
+offset = 0
 
 
 def mode_halloween(key, pixels):
@@ -113,15 +115,19 @@ def mode_halloween(key, pixels):
     c2 = _color_tuple(orange)
     i = 0
     delta = 1
-    h = 0
-    offset = 0
     global halloween_mode
+    global h
+    global offset
 
     def start_rainbow():
         global halloween_mode
         halloween_mode = HalloweenModes.RAINBOW
         # post_message_to_lack("trick or treaters are here")
-        post_message_to_lack("rainbow mode")    
+        global h
+        global offset
+        h = 0
+        offset = 0
+        post_message_to_lack("rainbow mode")
 
     register_button(start_rainbow)
 
