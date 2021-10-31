@@ -115,18 +115,19 @@ def mode_halloween(key, pixels):
     delta = 1
     h = 0
     offset = 0
+    global halloween_mode
 
     def start_rainbow():
         global halloween_mode
         halloween_mode = HalloweenModes.RAINBOW
-        post_message_to_lack("@here trick or treaters")
+        # post_message_to_lack("trick or treaters are here")
+        post_message_to_lack("rainbow mode")    
+
     register_button(start_rainbow)
 
     while key == state_key():
-        global halloween_mode
         if halloween_mode == HalloweenModes.WAITING:
             color = _color_between(c1, c2, float(i) / 100.0)
-            print(color)
             pixels.fill(color)
             pixels.show()
             time.sleep(0.01)
@@ -145,6 +146,7 @@ def mode_halloween(key, pixels):
             time.sleep(0.01)
             h += 1
             if h >= 100:
+                post_message_to_lack("nyancat mode")
                 halloween_mode = HalloweenModes.NYANCAT
 
         if halloween_mode == HalloweenModes.NYANCAT:
@@ -158,6 +160,7 @@ def mode_halloween(key, pixels):
             time.sleep(0.01)
             offset += 1
             if offset >= 100:
+                post_message_to_lack("waiting mode")
                 halloween_mode = HalloweenModes.WAITING
 
 
