@@ -4,5 +4,8 @@ build:
 deploy:
 	./scripts/deploy
 
-run:
-	./scripts/run
+run_server:
+	./scripts/run_server
+
+run_web:
+	cd web; yarn start

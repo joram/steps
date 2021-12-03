@@ -16,4 +16,4 @@ git commit -m "$response"
 git push origin main
 
 
-ssh ubuntu@192.168.1.78 'cd steps; git pull origin main'
+ssh ubuntu@192.168.1.78 'cd steps; git pull origin main; exit'

@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import {FilePage} from "./components/file_page";
 import {SolidRoughPage} from "./components/solid_rough_page";
+import {MuffinPage} from "./components/muffin_page";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                           <Dropdown.Item as={Link} to="/solid_rough">Solid Rough</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/fading">Fading</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/prebuilt">Prebuilt Modes</Dropdown.Item>
+                          <Dropdown.Item as={Link} to="/muffin">Muffin Mode</Dropdown.Item>
                           <Dropdown.Item as={Link} to="/file">File Upload</Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
@@ -39,6 +41,7 @@ function App() {
                             <Route path="/solid_rough"><SolidRoughPage/></Route>
                             <Route path="/prebuilt"><PrebuildModesPage/></Route>
                             <Route path="/fading"><FadingPage/></Route>
+                            <Route path="/muffin"><MuffinPage/></Route>
                             <Route path="/"><SolidPage/></Route>
                         </Switch>
                     </Container>
