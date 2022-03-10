@@ -4,7 +4,7 @@ import './App.css';
 import {SolidPage} from "./components/solid_page";
 import {PrebuildModesPage} from "./components/prebuilt_page";
 import {FadingPage} from "./components/fading_page";
-import {Menu, Dropdown, Segment, Container} from "semantic-ui-react";
+import {Menu, Dropdown, Segment, Container, Image} from "semantic-ui-react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,6 +44,7 @@ function App() {
                             <Route path="/muffin"><MuffinPage/></Route>
                             <Route path="/"><SolidPage/></Route>
                         </Switch>
+                          <Image src="/video_feed" />
                     </Container>
                 </Segment>
 

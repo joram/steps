@@ -19,7 +19,6 @@ export function SolidPage() {
   return (
     <div className="App">
       <ColorPicker color={{r:255, g:255, b:255}} onChangeComplete={ colorChanged } />
-      <img src="/video_feed" />
     </div>
   );
 }
