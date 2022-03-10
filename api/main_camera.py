@@ -30,6 +30,7 @@ def stream():
         ret_val, frame = cap.read()
         if frame is None:
             print("skipping bad frame")
+            time.sleep(1)
             continue
         if frame.shape:
             frame = cv2.resize(frame, (1920, 1080))
