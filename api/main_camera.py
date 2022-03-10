@@ -1,3 +1,4 @@
+import atexit
 import os
 
 from flask import Response, Flask, render_template
@@ -43,14 +44,29 @@ def video_frames():
     while True:
         with lock:
             if outputFrame is None:
+                print("no outputframe")
+                time.sleep(1)
                 continue
             (flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
             if not flag:
+                print("no flag")
                 continue
         yield b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n'
 
 
 @app.route("/video_feed")
 def video_feed():
+    print("serving video feed")
     return Response(video_frames(), mimetype="multipart/x-mixed-replace; boundary=frame")
 
+
+
+def release_video_feed():
+    print("releasing")
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+t = threading.Thread(target=stream, daemon=True)
+t.start()
+atexit.register(release_video_feed)
