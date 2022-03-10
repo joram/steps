@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {ColorPicker} from "./color_picker";
-import NumberInput from 'semantic-ui-react-numberinput';
 
 function post(color, variance){
     const requestOptions = {
