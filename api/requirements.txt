@@ -5,3 +5,7 @@ rpi_ws281x
 adafruit-circuitpython-neopixel
 slackclient
 python-dotenv
+opencv-python
+fastapi
+imutils
+rtsp
