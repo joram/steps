@@ -54,15 +54,3 @@ def video_frames():
 def video_feed():
     return Response(video_frames(), mimetype="multipart/x-mixed-replace; boundary=frame")
 
-
-if __name__ == '__main__':
-    t = threading.Thread(target=stream)
-    t.daemon = True
-    t.start()
-
-    # start the flask app
-    app.run(port=8000, debug=True, threaded=True, use_reloader=True)
-
-# release the video stream pointer
-cap.release()
-cv2.destroyAllWindows()
