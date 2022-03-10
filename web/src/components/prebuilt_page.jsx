@@ -12,15 +12,32 @@ function do_per_step() { update_mode({mode: "per_step"}) }
 
 function do_nyan_cat() { update_mode({mode: "nyan_cat"}) }
 
-function do_halloween() {
+function do_nyan_cats() { update_mode({mode: "nyan_cats"}) }
+
+function do_halloween() {update_mode({mode: "halloween"}) }
+
+
+
+
+
+
+function do_solid_sparkly() {
     update_mode({
-        mode: "fading",
-        colors: [
-            {r:255, g:0, b:0},
-            {r:255, g:66, b:0},
-        ]
+        mode: "solid_sparkly",
+        //TODO: get primary, sparkles from UI
+        primary: {r:0, g:50, b:0},
+        sparkles: {r:255, g:255, b:255},
     })
 }
+
+
+function do_chaos_colors() {
+    update_mode({
+        mode: "chaos_colors"
+    })
+}
+
+//TODO: add 'raindrops' and 'mode_chaos_colors' in many places
 
 
 function update_mode(state){
@@ -45,6 +62,9 @@ export function PrebuildModesPage() {
             <List.Item><Button onClick={do_halloween}>Halloween</Button></List.Item>
             <List.Item><Button onClick={do_per_step}>Per Step</Button></List.Item>
             <List.Item><Button onClick={do_nyan_cat}>Nyan Cat</Button></List.Item>
+            <List.Item><Button onClick={do_nyan_cats}>Nyan Cats</Button></List.Item>
+            <List.Item><Button onClick={do_solid_sparkly}>Solid Sparkly</Button></List.Item>
+            <List.Item><Button onClick={do_chaos_colors}>Chaos Colors</Button></List.Item>
             <List.Item><Button onClick={do_off}>Off</Button></List.Item>
         </List>
     </div>

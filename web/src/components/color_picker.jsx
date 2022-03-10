@@ -1,5 +1,5 @@
 import React from 'react';
-import {BlockPicker} from 'react-color';
+import {CirclePicker} from 'react-color';
 
 
 
@@ -21,7 +21,15 @@ export class ColorPicker extends React.Component {
         this.props.onChangeComplete(color)
     }
 
+    colorChangedSingleValue(e){
+        let state = this.state
+        state.color[e.target.name] = e.target.value
+        this.setState(state)
+        this.props.onChangeComplete(state.color)
+    }
+
     render() {
+        console.log(this.state.color)
         return (
         <>
             <div style={{
@@ -31,7 +39,36 @@ export class ColorPicker extends React.Component {
                 height: "50px",
                 marginBottom: "10px"
             }}/>
-            <BlockPicker onChange={this.colorChanged.bind(this)}/>
+            <CirclePicker onChange={this.colorChanged.bind(this)}/>
+            <div style={{float:"left", paddingTop:"10px"}}>
+                <input
+                    max={255}
+                    min={0}
+                    name="r"
+                    type="number"
+                    style={{width:"80px"}}
+                    value={this.state.color.r}
+                    onChange={this.colorChangedSingleValue.bind(this)}
+                />
+                <input
+                    max={255}
+                    min={0}
+                    name="g"
+                    type="number"
+                    style={{width:"80px"}}
+                    value={this.state.color.g}
+                    onChange={this.colorChangedSingleValue.bind(this)}
+                />
+                <input
+                    max={255}
+                    min={0}
+                    name="b"
+                    type="number"
+                    style={{width:"80px"}}
+                    value={this.state.color.b}
+                    onChange={this.colorChangedSingleValue.bind(this)}
+                />
+            </div>
         </>
         );
     }
