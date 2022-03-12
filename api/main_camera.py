@@ -15,30 +15,31 @@ outputFrame = None
 lock = threading.Lock()
 
 
-cap = cv2.VideoCapture(os.environ["CAMERA_URI"])
+cap = None
 
 
 def stream():
-    global outputFrame, lock
-
-    if not cap.isOpened():
-        print('camera open failed')
-        time.sleep(1)
-        return
-
+    global outputFrame, lock, cap
     while True:
-        ret_val, frame = cap.read()
-        if frame is None:
-            print("skipping bad frame")
+        cap = cv2.VideoCapture(os.environ["CAMERA_URI"])
+        if not cap.isOpened():
+            print('camera open failed')
             time.sleep(1)
-            continue
-        if frame.shape:
-            frame = cv2.resize(frame, (1920, 1080))
-            with lock:
-                outputFrame = frame.copy()
-        else:
-            continue
+            return
 
+        while True:
+            ret_val, frame = cap.read()
+            if frame is None:
+                print("skipping bad frame")
+                time.sleep(1)
+                break
+            if frame.shape:
+                frame = cv2.resize(frame, (1920, 1080))
+                with lock:
+                    outputFrame = frame.copy()
+            else:
+                continue
+        release_video_feed()
 
 def video_frames():
     global outputFrame, lock

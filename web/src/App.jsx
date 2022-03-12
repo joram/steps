@@ -44,7 +44,7 @@ function App() {
                             <Route path="/muffin"><MuffinPage/></Route>
                             <Route path="/"><SolidPage/></Route>
                         </Switch>
-                          <Image src="/video_feed" />
+                        <Image src="/video_feed" />
                     </Container>
                 </Segment>
 
