@@ -8,7 +8,7 @@ from utils import wheel, get_state, _color_tuple, state_key, _color_between, set
 
 def mode_solid(key, pixels):
     state = get_state()
-    color = state.get("color")
+    color = state.get("color", {})
     print(f"solid: {color}")
     pixels.fill((
         color.get("r", 255),
