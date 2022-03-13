@@ -15,7 +15,6 @@ build_dir = os.path.join(dir_path, "build")
 app = Flask(__name__, static_folder=build_dir)
 CORS(app)
 
-from main_camera import *
 from main_leds import *
 
 if __name__ == '__main__':
