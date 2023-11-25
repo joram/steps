@@ -1,11 +1,15 @@
 import abc
+import asyncio
+import time
 
 
 class BaseMode(abc.ABC):
     name: str
     description: str
     image_url: str
-    running: bool = False
+
+    wait_ms = 100
+    frame_count = 0
     config: dict = {}
 
     def to_dict(self):
@@ -15,15 +19,19 @@ class BaseMode(abc.ABC):
             "image_url": self.image_url,
         }
 
-    @abc.abstractmethod
+    def start(self, pixels):
+        pass
+
     def update_frame(self, pixels):
         pass
 
-    def start(self, pixels, config=None):
-        self.config = config
-        self.running = True
-        while self.running:
-            self.update_frame(pixels)
+    def stop(self, pixels):
+        pass
 
-    def stop(self):
-        self.running = False
+class BaseStaticColourMode(BaseMode):
+
+    colour = (255, 255, 255)
+
+    def start(self, pixels):
+        pixels.fill(self.colour)
+        pixels.show()
