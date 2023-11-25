@@ -1,27 +1,70 @@
-import os
+import atexit
+from typing import Optional
 
-try:
-    import board
-    from neopixel import NeoPixel
-    from button import register_button
-except:
-    pass
-from flask import Flask
-from flask_cors import CORS
+import board
+import neopixel
+from fastapi import FastAPI, BackgroundTasks
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
+from starlette.responses import FileResponse
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-build_dir = os.path.join(dir_path, "build")
+from modes.off import Off
+from modes.rainbow_solid import RainbowSolidMode
+from modes.rainbow_sliding import RainbowSlidingMode
+from modes.utils.slack import post_message_to_lack
 
-app = Flask(__name__, static_folder=build_dir)
-CORS(app)
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+pixels = neopixel.NeoPixel(board.D18, 300, auto_write=False)
 
-from main_leds import *
+# Start with off mode
+off = Off()
+off.start(pixels)
+current_mode = off
+available_modes = [
+    off,
+    RainbowSlidingMode(),
+    RainbowSolidMode(),
+]
 
-if __name__ == '__main__':
-    if os.getenv('WERKZEUG_RUN_MAIN') == 'true':
-        post_message_to_lack("stairs pi has booted")
-        # register_button(button_callback)
-        pixels.fill((255, 255, 255))
-        atexit.register(stop_leds)
-        start_worker()
-    app.run(host="0.0.0.0", debug=True)
+
+@app.get("/")
+def root():
+    return FileResponse('./static/index.html')
+
+
+@app.get("/modes")
+def get_modes():
+    return [mode.to_dict() for mode in available_modes]
+
+
+class SetModeRequest(BaseModel):
+    name: str
+    config: Optional[dict] = {}
+
+
+@app.post("/mode")
+async def set_mode(body: SetModeRequest, background_tasks: BackgroundTasks):
+    global current_mode, pixels
+
+    current_mode.stop()
+
+    for mode in available_modes:
+        if mode.name == body.name:
+            current_mode = mode
+            break
+
+    background_tasks.add_task(post_message_to_lack, f"Mode set to {current_mode.name}")
+    background_tasks.add_task(current_mode.start, pixels, body.config)
+    return {"success": True}
+
+
+def stop_all_modes():
+    for mode in available_modes:
+        mode.stop()
+    pixels.fill((0, 0, 0))
+    pixels.show()
+    pixels.deinit()
+
+
+atexit.register(stop_all_modes)

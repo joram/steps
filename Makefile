@@ -1,11 +1,5 @@
-build:
-	./scripts/build
+run:
+	cd api; sudo uvicorn main:app --host 0.0.0.0 --reload --port 5000
 
-deploy:
-	./scripts/deploy
-
-run_server:
-	./scripts/run_server
-
-run_web:
-	cd web; yarn start
+remote_run:
+	ssh -t ubuntu@steps "cd /home/ubuntu/steps; make run"
