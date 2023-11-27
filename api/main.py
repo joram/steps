@@ -1,40 +1,42 @@
+#!/usr/bin/env python3
+import uvicorn
 import asyncio
 from typing import Optional
 
 import board
-import neopixel
+# import neopixel
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from starlette.responses import FileResponse
 
-from modes.off import Off
-from modes.rainbow_sliding import RainbowSlidingMode
-from modes.rainbow_solid import RainbowSolidMode
-from modes.red import RedMode
-from modes.green import GreenMode
-from modes.blue import BlueMode
-from modes.utils.slack import post_message_to_lack
+# from modes.off import Off
+# from modes.rainbow_sliding import RainbowSlidingMode
+# from modes.rainbow_solid import RainbowSolidMode
+# from modes.red import RedMode
+# from modes.green import GreenMode
+# from modes.blue import BlueMode
+# from modes.utils.slack import post_message_to_lack
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Start with off mode
-off = Off()
+# off = Off()
 available_modes = [
-    off,
-    RainbowSlidingMode(),
-    RainbowSolidMode(),
-    RedMode(),
-    GreenMode(),
-    BlueMode(),
+    # off,
+    # RainbowSlidingMode(),
+    # RainbowSolidMode(),
+    # RedMode(),
+    # GreenMode(),
+    # BlueMode(),
 ]
 queue = asyncio.Queue()
 
 
-pixels = neopixel.NeoPixel(board.D18, 300, auto_write=False)
-pixels.fill((255,255,255))
-pixels.show()
+# pixels = neopixel.NeoPixel(board.D18, 300, auto_write=False)
+# pixels.fill((255,255,255))
+# pixels.show()
 
 class SetModeRequest(BaseModel):
     name: str
@@ -51,9 +53,9 @@ def get_modes():
     return [mode.to_dict() for mode in available_modes]
 
 
-@app.on_event("startup")
-def startup_event():
-    asyncio.create_task(mode_runner(pixels))
+# @app.on_event("startup")
+# def startup_event():
+#     asyncio.create_task(mode_runner(pixels))
 
 
 async def mode_runner(pixels):
@@ -101,3 +103,5 @@ async def set_mode(body: SetModeRequest):
     await queue.put(body)
     return {"success": True}
 
+if __name__ == "__main__":
+    uvicorn.run("main:app", port=5000, log_level="info")

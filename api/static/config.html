@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/favicon.jpg">
+    <title>LED Control Form</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
+    <script src="./config.js"></script>
+</head>
+<body>
+
+    <div class="ui container">
+        <h2 class="ui header">LED Control Form</h2>
+
+        <!-- Colors Section -->
+        <div id="colors-section" class="ui segment">
+            <h3 class="ui dividing header">Color(s)</h3>
+            <table class="ui five column table">
+                <thead>
+                <tr>
+                    <th class="one wide">Colour</th>
+                    <th class="ten wide">Number of pixels (max 600)</th>
+                    <th class="one wide">#</th>
+                </tr>
+                </thead>
+                <tbody id="colours">
+                </tbody>
+              <tfoot class="full-width">
+                <tr>
+                  <th colspan="12">
+                    <div class="ui button fluid" onclick="addColourRow()">
+                      Add Colour
+                    </div>
+                  </th>
+                </tr>
+              </tfoot>
+            </table>
+        </div>
+
+        <!-- Movement Section -->
+        <div id="movement-section" class="ui segment">
+            <h3 class="ui dividing header">Movement</h3>
+            <div class="ui form">
+                <div class="field">
+                    <label>Movement Type</label>
+
+                    <div id="descriptions">
+                        <div class="ui message movement-type-description" id="static-description" style="display: none;">
+                            <div class="header">
+                                How Static Mode Works
+                            </div>
+                            Static, not moving pixels
+                        </div>
+                        <div class="ui message movement-type-description" id="sliding-description" style="display: none;">
+                            <div class="header">
+                                How Static Mode Works
+                            </div>
+                            Each tick (in ms), the row of pixels will shift (forwards or backwards) X pixels
+                        </div>
+                    </div>
+
+                    <select name="movement-type" id="movement-type" class="ui dropdown" onchange="movementTypeChanged()">
+                        <option value="static">Static</option>
+                        <option value="sliding">Sliding</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Interval (ms)</label>
+                    <input type="number" name="interval" placeholder="Enter interval in milliseconds">
+                </div>
+            </div>
+        </div>
+
+        <button class="ui primary button" onclick="submitForm()">Submit</button>
+    </div>
+</body>
+</html>
