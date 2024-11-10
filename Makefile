@@ -14,7 +14,7 @@ deploy:
 	ssh ubuntu@steps -t "cd /home/ubuntu/steps; pkill -f uvicorn; git pull origin main; make run"
 
 ssh:
-	ssh ubuntu@steps -t "top"
+	ssh ubuntu@steps
 
 stop:
 	ssh ubuntu@steps -t "pkill -f uvicorn"
