@@ -11,10 +11,10 @@ deploy:
 	git add .
 	git commit -m "deploy"
 	git push origin main
-	ssh ubuntu@steps -t "cd /home/ubuntu/steps; make stop; git pull origin main; make run"
+	ssh ubuntu@steps -t "cd /home/ubuntu/steps; pkill -f uvicorn; git pull origin main; make run"
 
 ssh:
-	ssh ubuntu@steps -t "ps -aux | grep uvicorn"
+	ssh ubuntu@steps -t "top"
 
 stop:
 	ssh ubuntu@steps -t "pkill -f uvicorn"
