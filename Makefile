@@ -7,3 +7,14 @@ run_remote:
 run_local:
 	cd api; uvicorn main:app --host 0.0.0.0 --reload --port 5000
 
+deploy:
+	git add .
+	git commit -m "deploy"
+	git push origin main
+	ssh ubuntu@steps -t "cd /home/ubuntu/steps; make stop; git pull origin main; make run"
+
+ssh:
+	ssh ubuntu@steps -t "ps -aux | grep uvicorn"
+
+stop:
+	ssh ubuntu@steps -t "pkill -f uvicorn"
