@@ -10,26 +10,26 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from starlette.responses import FileResponse
 
-# from modes.off import Off
-# from modes.rainbow_sliding import RainbowSlidingMode
-# from modes.rainbow_solid import RainbowSolidMode
-# from modes.red import RedMode
-# from modes.green import GreenMode
-# from modes.blue import BlueMode
-# from modes.utils.slack import post_message_to_lack
+from modes.off import Off
+from modes.rainbow_sliding import RainbowSlidingMode
+from modes.rainbow_solid import RainbowSolidMode
+from modes.red import RedMode
+from modes.green import GreenMode
+from modes.blue import BlueMode
+from modes.utils.slack import post_message_to_lack
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Start with off mode
-# off = Off()
+off = Off()
 available_modes = [
-    # off,
-    # RainbowSlidingMode(),
-    # RainbowSolidMode(),
-    # RedMode(),
-    # GreenMode(),
-    # BlueMode(),
+    off,
+    RainbowSlidingMode(),
+    RainbowSolidMode(),
+    RedMode(),
+    GreenMode(),
+    BlueMode(),
 ]
 queue = asyncio.Queue()
 
@@ -62,8 +62,8 @@ async def mode_runner(pixels):
 
     await asyncio.sleep(1)
 
-    # mode = off
-    # mode.start(pixels)
+    mode = off
+    mode.start(pixels)
     while True:
         print("Running")
         await asyncio.sleep(1)

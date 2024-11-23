@@ -11,7 +11,7 @@ deploy:
 	git add .
 	git commit -m "deploy"
 	git push origin main
-	ssh ubuntu@steps -t "cd /home/ubuntu/steps; pkill -f uvicorn; git pull origin main; make run"
+	ssh ubuntu@steps -t "cd /home/ubuntu/steps; git pull origin main"
 
 ssh:
 	ssh ubuntu@steps
