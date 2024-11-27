@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Step Lighting Controls</title>
     <link rel="stylesheet" href="/static/index.css">
-    <script src="/static/index.js"></script>
+    <script defer src="/static/index.js"></script>
     <link rel="icon" href="/static/favicon.jpg">
 </head>
 <body>
-    <div id="ListOfModes"></div>
-    <script>render()</script>
-
+<header>
+    <h1>Step Lighting Controls</h1>
+    <p>Choose your mode and light up your space!</p>
+</header>
+<main>
+    <section id="ListOfModes" aria-label="List of Lighting Modes">
+        <!-- Dynamic content rendered by JS -->
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 Step Lighting Inc. All rights reserved.</p>
+</footer>
+<script>render()</script>
 </body>
 </html>
