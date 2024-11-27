@@ -8,44 +8,47 @@ function createServiceElement(service) {
     if (service.image_background_color !== null) {
         imageItem.style.backgroundColor = service.image_background_color; // Correct property assignment
     }
-    const imageLink = document.createElement('a'); // Use <a> for semantic links
-    imageLink.href = service.url; // Properly assign the href
-    imageLink.classList.add('image-link');
-    imageLink.target = "_blank"; // Open links in a new tab
 
-    let image = null;
+    let imageLink = null;
     if (service.image_url!==null) {
+        imageLink = document.createElement('a'); // Use <a> for semantic links
+        imageLink.href = service.url; // Properly assign the href
+        imageLink.classList.add('image-link');
+        imageLink.target = "_blank"; // Open links in a new tab
+
         image = document.createElement('img');
         image.src = service.image_url;
         image.alt = service.name; // Add alt attribute for accessibility
         image.title = service.name;
         image.classList.add('image');
+        imageLink.appendChild(image);
+
+
+        // Add event listener to the image link
+        imageLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default navigation
+            fetch("/mode", {
+                method: "POST",
+                body: JSON.stringify({ name: service.name }),
+                headers: { "Content-Type": "application/json; charset=UTF-8" }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Mode set successfully:', data);
+                })
+                .catch(error => console.error('Error setting mode:', error));
+        });
     }
 
     const overlay = document.createElement('div');
     overlay.classList.add('overlay');
     overlay.textContent = service.description;
 
-    // Add event listener to the image link
-    imageLink.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent default navigation
-        fetch("/mode", {
-            method: "POST",
-            body: JSON.stringify({ name: service.name }),
-            headers: { "Content-Type": "application/json; charset=UTF-8" }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Mode set successfully:', data);
-            })
-            .catch(error => console.error('Error setting mode:', error));
-    });
 
     // Append elements to the DOM
-    if (image !== null){
-        imageLink.appendChild(image);
+    if (imageLink !== null){
+        imageItem.appendChild(imageLink);
     }
-    imageItem.appendChild(imageLink);
     imageItem.appendChild(overlay);
 
     return imageItem;
