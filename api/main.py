@@ -4,7 +4,7 @@ import asyncio
 from typing import Optional
 
 import board
-# import neopixel
+import neopixel
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -34,9 +34,9 @@ available_modes = [
 queue = asyncio.Queue()
 
 
-# pixels = neopixel.NeoPixel(board.D18, 300, auto_write=False)
-# pixels.fill((255,255,255))
-# pixels.show()
+pixels = neopixel.NeoPixel(board.D18, 300, auto_write=False)
+pixels.fill((255,255,255))
+pixels.show()
 
 class SetModeRequest(BaseModel):
     name: str
@@ -53,9 +53,9 @@ def get_modes():
     return [mode.to_dict() for mode in available_modes]
 
 
-# @app.on_event("startup")
-# def startup_event():
-#     asyncio.create_task(mode_runner(pixels))
+@app.on_event("startup")
+def startup_event():
+    asyncio.create_task(mode_runner(pixels))
 
 
 async def mode_runner(pixels):
