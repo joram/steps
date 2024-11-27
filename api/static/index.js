@@ -8,6 +8,7 @@ function createServiceElement(service) {
     imageLink.href = "#"; // Placeholder URL
     imageLink.classList.add('image-link');
 
+
     const image = document.createElement('img');
     image.src = service.image_url;
     image.alt = service.name; // Add alt for accessibility
@@ -18,8 +19,10 @@ function createServiceElement(service) {
     overlay.classList.add('overlay');
     overlay.textContent = service.description;
 
-    imageLink.appendChild(image);
-    imageItem.appendChild(imageLink);
+    if (service.image_url !== null) {
+        imageLink.appendChild(image);
+        imageItem.appendChild(imageLink);
+    }
     imageItem.appendChild(overlay);
 
     return imageItem;
