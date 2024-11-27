@@ -35,3 +35,4 @@ class BaseStaticColourMode(BaseMode):
     def start(self, pixels):
         pixels.fill(self.colour)
         pixels.show()
+        print(f"Starting {self.name} with colour {self.colour}")
