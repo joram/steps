@@ -7,6 +7,7 @@ class BaseMode(abc.ABC):
     name: str
     description: str
     image_url: str
+    image_background_color = "yellow"
 
     wait_ms = 100
     frame_count = 0
@@ -17,6 +18,7 @@ class BaseMode(abc.ABC):
             "name": self.name,
             "description": self.description,
             "image_url": self.image_url,
+            "image_background_color": self.image_background_color,
         }
 
     def start(self, pixels):

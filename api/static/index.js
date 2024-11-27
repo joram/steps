@@ -3,6 +3,7 @@ const jsonUrl = '/modes';
 function createServiceElement(service) {
     const imageItem = document.createElement('div');
     imageItem.classList.add('image-item');
+    imageItem.style.backgroundColor = service.background_image_color;
 
     const imageLink = document.createElement('div');
     imageLink.href = service.url;
