@@ -3,7 +3,7 @@ const jsonUrl = '/modes';
 function createServiceElement(service) {
     const imageItem = document.createElement('div');
     imageItem.classList.add('image-item');
-    imageItem.style.backgroundColor = service.background_image_color;
+    imageItem.style.backgroundColor = service.image_background_color;
 
     const imageLink = document.createElement('div');
     imageLink.href = service.url;
@@ -48,7 +48,6 @@ function render() {
             const imageGrid = document.createElement('imageGrid');
             imageGrid.classList.add('image-grid');
             data.forEach(service => {
-                console.log(service)
                 const imageItem = createServiceElement(service);
                 imageGrid.appendChild(imageItem);
             })
