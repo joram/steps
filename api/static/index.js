@@ -3,6 +3,8 @@ const jsonUrl = '/modes';
 function createServiceElement(service) {
     const imageItem = document.createElement('div');
     imageItem.classList.add('image-item');
+
+    console.log(service.image_background_color)
     imageItem.style.backgroundColor = service.image_background_color; // Correct property assignment
 
     const imageLink = document.createElement('a'); // Use <a> for semantic links
