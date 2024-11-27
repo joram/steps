@@ -92,13 +92,17 @@ main {
 
 /* Footer Styling */
 footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     padding: 10px 20px;
     background-color: #333;
     color: #fff;
     font-size: 0.8rem;
-    margin-top: 40px;
+    height: 60px; /* Optional: Define a fixed height if needed */
 }
+
 
 /* Responsive Improvements */
 @media (max-width: 768px) {
