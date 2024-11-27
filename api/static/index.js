@@ -19,7 +19,7 @@ function createServiceElement(service) {
     overlay.classList.add('overlay');
     overlay.textContent = service.description;
 
-    if (service.image_url !== null) {
+    if (service.image_url !== null && service.image_url !== undefined && service.image_url !== 'null') {
         imageLink.appendChild(image);
         imageItem.appendChild(imageLink);
     }
