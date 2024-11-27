@@ -1,4 +1,3 @@
-const jsonUrl = '/modes';
 function createServiceElement(service) {
     const imageItem = document.createElement('div');
     imageItem.classList.add('image-item');
@@ -19,7 +18,14 @@ function createServiceElement(service) {
     overlay.classList.add('overlay');
     overlay.textContent = service.description;
 
-    if (service.image_url !== null && service.image_url !== undefined && service.image_url !== 'null') {
+    if (
+        service.image_url !== null &&
+        service.image_url !== undefined &&
+        service.image_url !== 'null' &&
+        service.image_url !== '' &&
+        service.image_url !== 'undefined'
+
+    ) {
         imageLink.appendChild(image);
         imageItem.appendChild(imageLink);
     }
@@ -29,7 +35,7 @@ function createServiceElement(service) {
 }
 
 function render() {
-    fetch(jsonUrl)
+    fetch("/modes")
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -44,8 +50,7 @@ function render() {
             imageGrid.classList.add('image-grid');
 
             data.forEach(service => {
-                const imageItem = createServiceElement(service);
-                imageGrid.appendChild(imageItem);
+                imageGrid.appendChild(createServiceElement(service));
             });
 
             root.appendChild(imageGrid);
