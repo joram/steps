@@ -12,11 +12,14 @@ function createServiceElement(service) {
     imageLink.classList.add('image-link');
     imageLink.target = "_blank"; // Open links in a new tab
 
-    const image = document.createElement('img');
-    image.src = service.image_url;
-    image.alt = service.name; // Add alt attribute for accessibility
-    image.title = service.name;
-    image.classList.add('image');
+    let image = null;
+    if (service.image_url!==null) {
+        image = document.createElement('img');
+        image.src = service.image_url;
+        image.alt = service.name; // Add alt attribute for accessibility
+        image.title = service.name;
+        image.classList.add('image');
+    }
 
     const overlay = document.createElement('div');
     overlay.classList.add('overlay');
@@ -38,7 +41,9 @@ function createServiceElement(service) {
     });
 
     // Append elements to the DOM
-    imageLink.appendChild(image);
+    if (image !== null){
+        imageLink.appendChild(image);
+    }
     imageItem.appendChild(imageLink);
     imageItem.appendChild(overlay);
 
