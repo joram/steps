@@ -5,8 +5,9 @@ function createServiceElement(service) {
     imageItem.classList.add('image-item');
 
     console.log(service.image_background_color)
-    imageItem.style.backgroundColor = service.image_background_color; // Correct property assignment
-
+    if (service.image_background_color !== null) {
+        imageItem.style.backgroundColor = service.image_background_color; // Correct property assignment
+    }
     const imageLink = document.createElement('a'); // Use <a> for semantic links
     imageLink.href = service.url; // Properly assign the href
     imageLink.classList.add('image-link');
